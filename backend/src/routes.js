@@ -6,8 +6,8 @@ const userController = require('./controllers/UserController')
 const { createUser, authUser } = require('./validators/UserValidator')
 
 routes
-    // Users
-    .post('/users', createUser, userController.create)
+    .post('/cadastro', createUser, userController.create)
+    .post('/login', authUser, userController.auth)
 
 
 module.exports = routes

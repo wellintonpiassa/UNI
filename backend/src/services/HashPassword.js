@@ -19,10 +19,12 @@ module.exports = {
     async verifyPassword(usuario) {
 
         // get the user based on their email
-        const data = await knex('users').select('*').where({ email: usuario.email });
+        const data = await knex('users').select('senha').where({ email: usuario.email });
+        if(data.length <= 0)
+            return false
 
         // use bcrypt to hash the password and compared it to our stored hash
-        return await bcrypt.compare(usuario.password, data[0].senha);
+        return await bcrypt.compare(usuario.senha, data[0].senha);
     }
 
 }

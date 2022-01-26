@@ -46,4 +46,23 @@ exports.createUser = [
     },
 ];
 
-exports.authUser = []
+exports.authUser = [
+    check('email')
+        .notEmpty()
+        .withMessage("Campo 'Email' é obrigatório")
+        .isEmail()
+        .withMessage("Email inválido"),
+
+    check('senha')
+        .notEmpty()
+        .withMessage("Campo 'Senha' é obrigatório")
+        .isLength({ min: 5 })
+        .withMessage("A senha precisa ter no mínimo 5 caracteres"),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty())
+            return res.status(422).json({ errors: errors.array() });
+        next();
+    }
+];

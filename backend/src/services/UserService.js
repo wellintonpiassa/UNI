@@ -16,5 +16,8 @@ module.exports = {
             email: usuario.email,
             senha: hashCode,
         })
+    },
+    async authUser(usuario) {
+        return await verifyPassword(usuario)
     }
 }
