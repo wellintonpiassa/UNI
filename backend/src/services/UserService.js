@@ -1,23 +1,28 @@
 const knex = require('../database')
-const { hashPassword, verifyPassword } = require("../services/HashPassword");
 
+class UserService {
 
-module.exports = {
-    async createUser(usuario) {
+    constructor() {
+        this.hashPassword = require("../services/HashPassword");
+    }
 
-        const hashCode = await hashPassword(usuario.senha)
+    async createUser() {
+        const hashCode = await this.hashPassword.hashPassword(usuario.senha)
 
-        await knex('users').insert({
-            nome: usuario.nome,
-            administrador: usuario.administrador,
-            participacao_atletica: usuario.participacao_atletica,
-            celular: usuario.celular,
-            data_nascimento: usuario.data_nascimento,
-            email: usuario.email,
-            senha: hashCode,
-        })
-    },
+        // await knex('users').insert({
+        //     nome: usuario.nome,
+        //     administrador: usuario.administrador,
+        //     participacao_atletica: usuario.participacao_atletica,
+        //     celular: usuario.celular,
+        //     data_nascimento: usuario.data_nascimento,
+        //     email: usuario.email,
+        //     senha: hashCode,
+        // })
+    }
+
     async authUser(usuario) {
-        return await verifyPassword(usuario)
+        return await this.hashPassword.verifyPassword(usuario)
     }
 }
+
+module.exports = new UserService()

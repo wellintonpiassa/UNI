@@ -1,8 +1,9 @@
 const knex = require('../database')
 const bcrypt = require('bcrypt');
 
+class HashPassword {
 
-module.exports = {
+    constructor() { }
 
     async hashPassword(senha) {
 
@@ -14,18 +15,18 @@ module.exports = {
 
         return hashCode
 
-    },
+    }
 
     async verifyPassword(usuario) {
 
         // get the user based on their email
         const data = await knex('users').select('senha').where({ email: usuario.email });
-        if(data.length <= 0)
+        if (data.length <= 0)
             return false
 
         // use bcrypt to hash the password and compared it to our stored hash
         return await bcrypt.compare(usuario.senha, data[0].senha);
     }
-
 }
 
+module.exports = new HashPassword()

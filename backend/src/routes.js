@@ -1,13 +1,22 @@
 const express = require('express')
-const routes = express.Router()
 
-const userController = require('./controllers/UserController')
+class Routes {
+    constructor(){
+        this.routes = express.Router()
+        this.userController = require('./controllers/UserController')
+        this.userValidator = require('./validators/UserValidator')
+        this.configureRoutes()
+    }
 
-const { createUser, authUser } = require('./validators/UserValidator')
+    configureRoutes(){
+        this.routes
+                .post('/cadastro', this.userValidator.getCreateUserValidator, this.userController.create)
+                .post('/login', this.userValidator.getLoginValidator, this.userController.auth)
+    }
+    
+    getRoutes(){
+        return this.routes
+    }
+}
 
-routes
-    .post('/cadastro', createUser, userController.create)
-    .post('/login', authUser, userController.auth)
-
-
-module.exports = routes
+module.exports = new Routes()
