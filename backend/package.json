@@ -13,7 +13,9 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "express-validator": "^6.14.0",
     "knex": "^1.0.1",
     "pg": "^8.7.1"
   }
