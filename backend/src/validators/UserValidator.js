@@ -8,7 +8,9 @@ exports.createUser = [
 
     check('administrador')
         .notEmpty()
-        .withMessage("Campo 'Administrador' é obrigatório"),
+        .withMessage("Campo 'Administrador' é obrigatório")
+        .isBoolean()
+        .withMessage("Campo 'Administrador' deve ser 'true' ou 'false'"),
 
     check('participacao_atletica')
         .notEmpty()

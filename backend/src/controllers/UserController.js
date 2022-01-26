@@ -6,7 +6,7 @@ module.exports = {
         try {
             const usuario = req.body
 
-            await createUser(usuario, next)
+            await createUser(usuario)
 
             return res.status(201).json({ msg: "Usuário criado" }).send()
 
