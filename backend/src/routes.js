@@ -10,8 +10,8 @@ class Routes {
 
     configureRoutes(){
         this.routes
-                .post('/cadastro', this.userValidator.getCreateUserValidator, this.userController.create)
-                .post('/login', this.userValidator.getLoginValidator, this.userController.auth)
+                .post('/cadastro', this.userValidator.getCreateUserValidator(), this.userController.create)
+                .post('/login', this.userValidator.getLoginValidator(), this.userController.auth)
     }
     
     getRoutes(){
