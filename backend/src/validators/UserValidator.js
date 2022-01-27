@@ -44,12 +44,10 @@ class UserValidator {
                 .withMessage("A senha precisa ter no mínimo 5 caracteres"),
 
             (req, res, next) => {
-                console.log("validacao1")
                 const errors = validationResult(req);
                 if (!errors.isEmpty())
                     return res.status(422).json({ errors: errors.array() });
                 next();
-                console.log("validacao2")
             },
         ]
     }

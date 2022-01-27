@@ -1,17 +1,15 @@
 
 class UserController {
+    static userService = require('../services/UserService')
+
     constructor() {
-        this.userService = require('../services/UserService')
     }
 
     async create(req, res, next) {
 
         try {
-            
-            const usuario = req.body
-
-            await this.userService.createUser(usuario)
-
+            const usuario = req.body 
+            await UserController.userService.createUser(usuario)
             return res.status(201).json({ msg: "Usuário criado" }).send()
 
         } catch (error) {
@@ -22,9 +20,7 @@ class UserController {
     async auth(req, res, next) {
         try {
             const usuario = req.body
-
-            const result = await this.userService.authUser(usuario)
-
+            const result = await UserController.userService.authUser(usuario)
             if (result) {
                 return res.status(200).json({ auth: true }).send()
             } else {

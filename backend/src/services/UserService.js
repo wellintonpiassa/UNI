@@ -3,10 +3,10 @@ const knex = require('../database')
 class UserService {
 
     constructor() {
-        this.hashPassword = require("../services/HashPassword");
+        this.hashPassword = require("./HashPassword");
     }
 
-    async createUser() {
+    async createUser(usuario) {
         const hashCode = await this.hashPassword.hashPassword(usuario.senha)
 
         // await knex('users').insert({
