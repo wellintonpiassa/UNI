@@ -3,8 +3,8 @@ const express = require('express')
 class Routes {
     constructor(){
         this.routes = express.Router()
-        this.userController = require('./controllers/UserController')
-        this.userValidator = require('./validators/UserValidator')
+        this.userController = require('../controllers/UserController')
+        this.userValidator = require('../validators/UserValidator')
         this.configureRoutes()
     }
 
