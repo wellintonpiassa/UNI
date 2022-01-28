@@ -1,13 +1,13 @@
 const knex = require('../database')
 
 class UserService {
-
+    #hashPassword;
     constructor() {
-        this.hashPassword = require("./HashPassword");
+        this.#hashPassword = require("./HashPassword");
     }
 
     async createUser(usuario) {
-        const hashCode = await this.hashPassword.hashPassword(usuario.senha)
+        const hashCode = await this.#hashPassword.hashPassword(usuario.senha)
 
         let datearray = usuario.data_nascimento.split("/");
         usuario.data_nascimento = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
@@ -30,7 +30,7 @@ class UserService {
     }
 
     async authUser(usuario) {
-        return await this.hashPassword.verifyPassword(usuario)
+        return await this.#hashPassword.verifyPassword(usuario)
     }
 }
 
