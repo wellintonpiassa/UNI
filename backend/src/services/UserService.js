@@ -9,9 +9,10 @@ class UserService {
     async createUser(usuario) {
         const hashCode = await this.hashPassword.hashPassword(usuario.senha)
 
+        let datearray = usuario.data_nascimento.split("/");
+        usuario.data_nascimento = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
         const [{ identificador }] = await knex('apk.usuario').insert({
             nome: usuario.nome,
-            administrador: usuario.administrador,
             participacao_atletica: usuario.participacao_atletica,
             celular: usuario.celular,
             datadenascimento: usuario.data_nascimento,

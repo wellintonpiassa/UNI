@@ -20,7 +20,7 @@ class HashPassword {
     async verifyPassword(usuario) {
 
         // get the user based on their email
-        const data = await knex('users').select('senha').where({ email: usuario.email });
+        const data = await knex('apk.usuario').select('senha').where({ e_mail: usuario.email });
         if (data.length <= 0)
             return false
 
