@@ -9,15 +9,23 @@ class UserService {
     async createUser(usuario) {
         const hashCode = await this.hashPassword.hashPassword(usuario.senha)
 
-        // await knex('users').insert({
-        //     nome: usuario.nome,
-        //     administrador: usuario.administrador,
-        //     participacao_atletica: usuario.participacao_atletica,
-        //     celular: usuario.celular,
-        //     data_nascimento: usuario.data_nascimento,
-        //     email: usuario.email,
-        //     senha: hashCode,
-        // })
+        const [{ identificador }] = await knex('apk.usuario').insert({
+            nome: usuario.nome,
+            administrador: usuario.administrador,
+            participacao_atletica: usuario.participacao_atletica,
+            celular: usuario.celular,
+            datadenascimento: usuario.data_nascimento,
+            e_mail: usuario.email,
+            senha: hashCode
+
+        }).returning('identificador')
+
+        if (usuario.administrador == true)
+            await knex('apk.organizador').insert({ usuario_id: parseInt(identificador) })
+
+        else
+            await knex('apk.universitario').insert({ usuario_id: parseInt(identificador) })
+
     }
 
     async authUser(usuario) {
