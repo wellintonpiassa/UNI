@@ -6,10 +6,10 @@ class Server {
         this.port = port
         this.server = express()
         this.routes = require('./routes')
-        this.configureServer()
+        this.configure()
     }
     
-    configureServer(){
+    #configure(){
         this.server.use(express.json())
         this.server.use(this.routes.getRoutes())
 

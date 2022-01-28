@@ -5,10 +5,10 @@ class Routes {
         this.routes = express.Router()
         this.userController = require('../controllers/UserController')
         this.userValidator = require('../validators/UserValidator')
-        this.configureRoutes()
+        this.configure()
     }
 
-    configureRoutes(){
+    #configure(){
         this.routes
                 .post('/cadastro', this.userValidator.getCreateUserValidator(), this.userController.create)
                 .post('/login', this.userValidator.getLoginValidator(), this.userController.auth)
