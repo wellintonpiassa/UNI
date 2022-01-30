@@ -1,40 +1,37 @@
-import {Image, StyleSheet, View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import PrimaryButton from '../components/primaryButton';
+import ScrollView from '../components/scrollView';
+import SecondaryButton from '../components/secondaryButton';
 
 import Logo from '../../assets/images/logo.png';
 
 const Introduction = () => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.Background}>
-      <Text />
+    <ScrollView style={styles.Background}>
       <View style={styles.LogoContainer}>
         <Image source={Logo} />
       </View>
       <View style={styles.Footer}>
-        <Button
-          style={styles.Button}
-          mode="contained"
-          onPress={() => console.log('Pressed')}>
+        <PrimaryButton onPress={() => navigation.navigate('SignUp')}>
           Criar Conta
-        </Button>
-        <Button
-          style={[styles.Button, styles.Login]}
-          mode="outlined"
-          labelStyle={styles.LoginText}
-          onPress={() => console.log('Pressed')}>
+        </PrimaryButton>
+        <SecondaryButton onPress={() => console.log('Pressed')}>
           Já tenho conta
-        </Button>
+        </SecondaryButton>
         <View style={styles.InfoContainer}>
-          <Icon name="chevron-double-up" size={25} color="white" />
+          <Icon color="white" name="chevron-double-up" size={25} />
           <Text>Sobre o UNI</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
-
-export default Introduction;
 
 const styles = StyleSheet.create({
   Background: {
@@ -45,17 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  Button: {
-    width: '80%',
-    marginTop: 10,
-    borderColor: 'white',
-  },
-  Login: {
-    borderWidth: 1,
-  },
-  LoginText: {
-    color: 'white',
-  },
   Footer: {
     alignItems: 'center',
     marginBottom: 20,
@@ -65,3 +51,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default Introduction;

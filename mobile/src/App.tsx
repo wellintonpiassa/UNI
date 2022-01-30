@@ -1,12 +1,11 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {StatusBar} from 'react-native';
-import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 
 import Routes from './routes/routes';
 
 const theme = {
   ...DefaultTheme,
-  roundness: 50,
   colors: {
     ...DefaultTheme.colors,
     primary: '#610094',
@@ -19,11 +18,11 @@ const App = () => {
   return (
     <>
       <StatusBar />
-      <NavigationContainer>
-        <PaperProvider theme={theme}>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
           <Routes />
-        </PaperProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </PaperProvider>
     </>
   );
 };

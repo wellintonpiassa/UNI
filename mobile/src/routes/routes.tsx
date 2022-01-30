@@ -4,10 +4,16 @@ import {
 } from '@react-navigation/stack';
 
 import Introduction from '../pages/introduction';
+import SignUp from '../pages/signup';
+
+export type RootStackParamList = {
+  Introduction: undefined;
+  SignUp: undefined;
+};
 
 // Rotas utilizadas quando o usuário não realizou login.
 const AuthRoutes: React.FC = () => {
-  const Stack = createStackNavigator();
+  const Stack = createStackNavigator<RootStackParamList>();
 
   return (
     <Stack.Navigator
@@ -18,7 +24,12 @@ const AuthRoutes: React.FC = () => {
       <Stack.Screen
         component={Introduction}
         name="Introduction"
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SignUp}
+        name="SignUp"
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
