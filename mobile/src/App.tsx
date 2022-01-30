@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
+import { AuthProvider } from './contexts/auth';
 
 import Routes from './routes/routes';
 
@@ -18,11 +19,13 @@ const App = () => {
   return (
     <>
       <StatusBar />
-      <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <Routes />
-        </NavigationContainer>
-      </PaperProvider>
+      <AuthProvider>
+        <PaperProvider theme={theme}>
+          <NavigationContainer>
+            <Routes />
+          </NavigationContainer>
+        </PaperProvider>
+      </AuthProvider>
     </>
   );
 };

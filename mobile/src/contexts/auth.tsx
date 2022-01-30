@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { hide } from 'react-native-bootsplash';
 import { createContext, useContext, useEffect, useState } from 'react';
 import signInService from '../services/signIn';
 
@@ -19,6 +20,9 @@ export const AuthProvider: React.FC = ({ children }) => {
       const loggedPreviously = await AsyncStorage.getItem('@UNI:isLoggedIn');
       setIsLoggedIn(!!loggedPreviously);
       setIsLoading(false);
+      setTimeout(() => {
+        hide({ fade: true });
+      }, 600);
     }
     loadSavedInfo();
   }, []);

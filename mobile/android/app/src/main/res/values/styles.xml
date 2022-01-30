@@ -11,6 +11,13 @@
         <item name="android:textColorHighlight">@color/primary</item>
     </style>
 
+    <!-- BootTheme should inherit from Theme.SplashScreen -->
+    <style name="BootTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bootsplash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/bootsplash_logo</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
     <!-- Dialog, time picker and calendar picker theme. -->
     <style name="AppTheme.DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:colorPrimary">@color/primary</item>
