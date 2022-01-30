@@ -17,7 +17,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadSavedInfo() {
       const loggedPreviously = await AsyncStorage.getItem('@UNI:isLoggedIn');
-      setIsLoading(!!loggedPreviously);
+      setIsLoggedIn(!!loggedPreviously);
+      setIsLoading(false);
     }
     loadSavedInfo();
   }, []);

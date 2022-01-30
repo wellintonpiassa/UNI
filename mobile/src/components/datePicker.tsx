@@ -13,7 +13,7 @@ interface FormDateProps {
   errorMessage?: string;
   maxDate?: Date;
   containerStyle?: StyleProp<ViewStyle>;
-  onChange: (fieldValue: Date) => void;
+  onChange: (fieldValue: string) => void;
 }
 
 const DatePicker: React.FC<FormDateProps> = ({
@@ -30,7 +30,7 @@ const DatePicker: React.FC<FormDateProps> = ({
   function handleDateSelected(_: Event, selectedDate?: Date) {
     setShow(Platform.OS === 'ios');
     if (selectedDate) {
-      onChange(selectedDate);
+      onChange(format(selectedDate, 'dd/MM/yyyy'));
       setDate(selectedDate);
     }
   }

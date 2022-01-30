@@ -1,4 +1,5 @@
-import { Formik } from 'formik';
+import { useNavigation } from '@react-navigation/native';
+import { Formik, FormikHelpers } from 'formik';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import * as Yup from 'yup';
@@ -8,8 +9,9 @@ import Picker from '../components/picker';
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
+import signUpService from '../services/signUp';
 
-interface SignUpInfo {
+interface FormData {
   name: string;
   type: string;
   group: string;
@@ -20,6 +22,7 @@ interface SignUpInfo {
 }
 
 const SignUp = () => {
+  const navigation = useNavigation();
   const signUpSchema = Yup.object({
     name: Yup.string().required('Campo obrigatório'),
     type: Yup.string().required('Campo obrigatório'),
@@ -29,9 +32,11 @@ const SignUp = () => {
       .min(11, 'Deve ter no mínimo 11 dígitos'),
     birthday: Yup.string().required('Campo obrigatório'),
     email: Yup.string().email('Email inválido').required('Campo obrigatório'),
-    password: Yup.string().required('Campo obrigatório'),
+    password: Yup.string()
+      .required('Campo obrigatório')
+      .min(5, 'Deve ter no mínimo 5 dígitos'),
   });
-  const initialInfo: SignUpInfo = {
+  const initialInfo: FormData = {
     name: '',
     type: '',
     group: '',
@@ -40,6 +45,19 @@ const SignUp = () => {
     email: '',
     password: '',
   };
+
+  async function handleSubmit(
+    values: FormData,
+    { setSubmitting }: FormikHelpers<FormData>,
+  ) {
+    setSubmitting(true);
+    const userInfo = {
+      ...values,
+      isAdmin: values.type === 'Organizador de eventos',
+    };
+    await signUpService(userInfo);
+    navigation.navigate('Introduction');
+  }
 
   return (
     <ScrollView style={styles.Background}>
@@ -52,7 +70,7 @@ const SignUp = () => {
         initialValues={initialInfo}
         validateOnChange={false}
         validationSchema={signUpSchema}
-        onSubmit={values => console.log(values)}>
+        onSubmit={handleSubmit}>
         {({ values, errors, handleChange, setFieldValue, handleSubmit }) => (
           <View>
             <TextInput
@@ -95,7 +113,7 @@ const SignUp = () => {
                 containerStyle={styles.Birthday}
                 errorMessage={errors.birthday}
                 placeholder="Data de nascimento"
-                onChange={date => setFieldValue('birthday', date.toISOString())}
+                onChange={handleChange('birthday')}
               />
             </View>
             <TextInput
