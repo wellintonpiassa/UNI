@@ -21,7 +21,7 @@ const Introduction = () => {
         <PrimaryButton onPress={() => navigation.navigate('SignUp')}>
           Criar Conta
         </PrimaryButton>
-        <SecondaryButton onPress={() => console.log('Pressed')}>
+        <SecondaryButton onPress={() => navigation.navigate('SignIn')}>
           Já tenho conta
         </SecondaryButton>
         <View style={styles.InfoContainer}>

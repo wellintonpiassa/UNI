@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import signInService from '../services/signIn';
 
 interface AuthContextData {
-  isSigned: boolean;
+  isSignedIn: boolean;
   signIn: (email: string, password: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        isSigned: !!isLoggedIn,
+        isSignedIn: !!isLoggedIn,
         signIn,
         signOut,
       }}>
