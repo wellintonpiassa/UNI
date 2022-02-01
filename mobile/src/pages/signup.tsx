@@ -71,7 +71,7 @@ const SignUp = () => {
         validateOnChange={false}
         validationSchema={signUpSchema}
         onSubmit={handleSubmit}>
-        {({ values, errors, handleChange, setFieldValue, handleSubmit }) => (
+        {({ values, errors, isSubmitting, handleChange, handleSubmit }) => (
           <View>
             <TextInput
               containerStyle={styles.Name}
@@ -129,7 +129,9 @@ const SignUp = () => {
               onChangeText={handleChange('password')}
             />
             <View style={styles.Footer}>
-              <PrimaryButton onPress={handleSubmit}>Cadastrar</PrimaryButton>
+              <PrimaryButton onPress={handleSubmit} disabled={isSubmitting}>
+                Cadastrar
+              </PrimaryButton>
             </View>
           </View>
         )}

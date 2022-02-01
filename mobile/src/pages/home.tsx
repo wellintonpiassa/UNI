@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <ScrollView style={styles.Background}>
       <View style={styles.Container}>
-        <Text>Você esta autenticado!</Text>
+        <Text>Você está autenticado!</Text>
         <PrimaryButton onPress={signOut}>Sair</PrimaryButton>
       </View>
     </ScrollView>
