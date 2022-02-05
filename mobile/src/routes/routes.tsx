@@ -7,6 +7,7 @@ import Home from '../pages/home';
 
 import Introduction from '../pages/introduction';
 import SignUp from '../pages/signup';
+import SignIn from '../pages/signin';
 import About from '../pages/about';
 
 export type RootStackParamList = {
@@ -40,6 +41,11 @@ const AuthRoutes: React.FC = () => {
       <Stack.Screen
         component={About}
         name="About"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SignIn}
+        name="SignIn"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
