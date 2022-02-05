@@ -7,12 +7,14 @@ import Home from '../pages/home';
 
 import Introduction from '../pages/introduction';
 import SignUp from '../pages/signup';
+import About from '../pages/about';
 
 export type RootStackParamList = {
   Introduction: undefined;
   SignUp: undefined;
   SignIn: undefined;
   Home: undefined;
+  About: undefined;
 };
 
 // Rotas utilizadas quando o usuário não realizou login.
@@ -33,6 +35,11 @@ const AuthRoutes: React.FC = () => {
       <Stack.Screen
         component={SignUp}
         name="SignUp"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={About}
+        name="About"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -26,7 +26,7 @@ const Introduction = () => {
         </SecondaryButton>
         <View style={styles.InfoContainer}>
           <Icon color="white" name="chevron-double-up" size={25} />
-          <Text>Sobre o UNI</Text>
+          <Text onPress={() => navigation.navigate('About')}>Sobre o UNI</Text>
         </View>
       </View>
     </ScrollView>
