@@ -4,7 +4,6 @@ import { Text } from 'react-native-paper';
 
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
-
 import { useAuth } from '../contexts/auth';
 
 const Home = () => {

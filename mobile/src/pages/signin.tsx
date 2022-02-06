@@ -27,15 +27,12 @@ const SignIn = () => {
     password: '',
   };
 
-  async function handleSubmit(
+  async function handleFormSubmit(
     values: FormData,
     { setSubmitting }: FormikHelpers<FormData>,
   ) {
     setSubmitting(true);
-    const userInfo = {
-      ...values
-    };
-    await signInService(userInfo.email, userInfo.password);
+    await signInService(values.email, values.password);
     navigation.navigate('Home');
   }
 
@@ -50,8 +47,8 @@ const SignIn = () => {
         initialValues={initialInfo}
         validateOnChange={false}
         validationSchema={signUpSchema}
-        onSubmit={handleSubmit}>
-        {({ values, errors, handleChange, setFieldValue, handleSubmit }) => (
+        onSubmit={handleFormSubmit}>
+        {({ values, errors, handleChange, handleSubmit }) => (
           <View>
             <TextInput
               errorMessage={errors.email}
@@ -71,13 +68,13 @@ const SignIn = () => {
           </View>
         )}
       </Formik>
-        
+
       <View style={styles.TextFooter}>
         <Text style={styles.thin}>Primeira vez aqui?</Text>
-        <Text style={styles.bold} onPress={() => navigation.navigate('SignUp')}>Cadastre-se</Text>
+        <Text style={styles.bold} onPress={() => navigation.navigate('SignUp')}>
+          Cadastre-se
+        </Text>
       </View>
-        
-
     </ScrollView>
   );
 };
@@ -90,10 +87,10 @@ const styles = StyleSheet.create({
   },
   HeaderTextContainer: {
     marginVertical: 60,
-    marginLeft: 10
+    marginLeft: 10,
   },
   HeaderText: {
-    fontSize: 40
+    fontSize: 40,
   },
   Footer: {
     alignItems: 'center',
@@ -103,16 +100,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: 100
+    marginBottom: 100,
   },
   thin: {
     fontSize: 25,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   bold: {
     fontWeight: 'bold',
-    fontSize: 25
-  }
+    fontSize: 25,
+  },
 });
 
 export default SignIn;

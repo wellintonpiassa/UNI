@@ -2,13 +2,13 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import { useAuth } from '../contexts/auth';
-import Home from '../pages/home';
 
-import Introduction from '../pages/introduction';
-import SignUp from '../pages/signup';
-import SignIn from '../pages/signin';
+import { useAuth } from '../contexts/auth';
 import About from '../pages/about';
+import Home from '../pages/home';
+import Introduction from '../pages/introduction';
+import SignIn from '../pages/signin';
+import SignUp from '../pages/signup';
 
 export type RootStackParamList = {
   Introduction: undefined;

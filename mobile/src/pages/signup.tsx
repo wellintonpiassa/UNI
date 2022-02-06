@@ -46,7 +46,7 @@ const SignUp = () => {
     password: '',
   };
 
-  async function handleSubmit(
+  async function handleFormSubmit(
     values: FormData,
     { setSubmitting }: FormikHelpers<FormData>,
   ) {
@@ -70,7 +70,7 @@ const SignUp = () => {
         initialValues={initialInfo}
         validateOnChange={false}
         validationSchema={signUpSchema}
-        onSubmit={handleSubmit}>
+        onSubmit={handleFormSubmit}>
         {({ values, errors, isSubmitting, handleChange, handleSubmit }) => (
           <View>
             <TextInput
@@ -129,7 +129,7 @@ const SignUp = () => {
               onChangeText={handleChange('password')}
             />
             <View style={styles.Footer}>
-              <PrimaryButton onPress={handleSubmit} disabled={isSubmitting}>
+              <PrimaryButton disabled={isSubmitting} onPress={handleSubmit}>
                 Cadastrar
               </PrimaryButton>
             </View>

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { hide } from 'react-native-bootsplash';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { hide } from 'react-native-bootsplash';
+
 import signInService from '../services/signIn';
 
 interface AuthContextData {
