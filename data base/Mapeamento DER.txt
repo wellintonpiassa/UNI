@@ -1,0 +1,3 @@
+Usuário(ID,Senha,Nome,Celular,DataDeNascimento,E_mail,Participação_Atletica)
+Organizador({ID->Usuário})
+Universitário({ID->Usuário})
