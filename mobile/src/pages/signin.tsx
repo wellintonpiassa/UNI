@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
-import signInService from '../services/signIn';
+import { useAuth } from '../contexts/auth';
 
 interface FormData {
   email: string;
@@ -16,6 +16,7 @@ interface FormData {
 
 const SignIn = () => {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
   const signUpSchema = Yup.object({
     email: Yup.string().email('Email inválido').required('Campo obrigatório'),
     password: Yup.string()
@@ -32,8 +33,7 @@ const SignIn = () => {
     { setSubmitting }: FormikHelpers<FormData>,
   ) {
     setSubmitting(true);
-    await signInService(values.email, values.password);
-    navigation.navigate('Home');
+    await signIn(values.email, values.password);
   }
 
   return (
