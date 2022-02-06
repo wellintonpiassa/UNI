@@ -31,7 +31,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   async function signIn(email: string, password: string) {
     const status = await signInService(email, password);
     if (status) {
-      await AsyncStorage.setItem('@UNI:isLoggedIn', '');
+      await AsyncStorage.setItem('@UNI:isLoggedIn', 'UNI');
       setIsLoggedIn(true);
     }
     return status;
