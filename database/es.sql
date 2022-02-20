@@ -1,4 +1,5 @@
 CREATE SCHEMA APK
+
 CREATE TABLE APK.usuario(
 	identificador SERIAL,
 	nome VARCHAR(30),
