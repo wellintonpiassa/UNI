@@ -4,22 +4,22 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
-
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      database: "", //inserir nome do banco de dados
-      user: "",     //nome de usuario do banco
-      password: ""  //senha do usuario
+      host: process.env.POSTGRES_HOST || "localhost", //inserir nome do banco de dados
+      database: process.env.POSTGRES_DB || "teste", //inserir nome do banco de dados
+      user: process.env.POSTGRES_USER || "teste", //nome de usuário do banco
+      password: process.env.POSTGRES_PASSWORD || "teste", //senha do usuário
     },
     migrations: {
-      tableName: 'knex_migrations',
-      directory: `${__dirname}/src/database/migrations`
+      tableName: "knex_migrations",
+      directory: `${__dirname}/src/database/migrations`,
     },
     seeds: {
-      directory: `${__dirname}/src/database/seeds`
-    }
-  }
+      directory: `${__dirname}/src/database/seeds`,
+    },
+  },
 
   // staging: {
   //   client: 'postgresql',
@@ -52,5 +52,4 @@ module.exports = {
   //     tableName: 'knex_migrations'
   //   }
   // }
-
 };
