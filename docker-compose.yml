@@ -14,7 +14,7 @@ services:
 
   uni-postgres:
     container_name: uni-postgres
-    image: postgres
+    image: postgres:14
     ports:
       - 5432:5432
     env_file:
