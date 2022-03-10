@@ -4,5 +4,5 @@
 
 # Verificações
 - [ ] Revisor adicionado ao pull request.
-- [ ] Atividade movida para categoria "Em andamento" no Trello.
+- [ ] Atividade movida para categoria "Revisão" no Trello.
 - [ ] Alteração testada localmente.
