@@ -3,5 +3,6 @@
 # Procedimentos necessários para testar a feature
 
 # Verificações
-- [ ] Atividade movida para categoria "Em andamento" no Trello.
-- [ ] Alteração testada locamente.
+- [ ] Revisor adicionado ao pull request.
+- [ ] Atividade movida para categoria "Revisão" no Trello.
+- [ ] Alteração testada localmente.
