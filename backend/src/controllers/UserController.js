@@ -1,6 +1,7 @@
 
 class UserController {
     static #userService = require('../services/UserService')
+    static #jwtAuth = require('../middlewares/JWTAuth')
 
     constructor() {
     }
@@ -8,9 +9,12 @@ class UserController {
     async create(req, res, next) {
 
         try {
-            const usuario = req.body 
+            const usuario = req.body
             await UserController.#userService.createUser(usuario)
-            return res.status(201).json({ msg: "Usuário criado" }).send()
+
+            const jwt = await UserController.#jwtAuth.getJWT(usuario.email)
+
+            return res.status(201).json({ msg: "Usuário criado", jwt: jwt }).send()
 
         } catch (error) {
             next(error)
@@ -21,8 +25,11 @@ class UserController {
         try {
             const usuario = req.body
             const result = await UserController.#userService.authUser(usuario)
+
+            const jwt = await UserController.#jwtAuth.getJWT(usuario.email)
+
             if (result) {
-                return res.status(200).json({ auth: true }).send()
+                return res.status(200).json({ auth: true, jwt: jwt }).send()
             } else {
                 return res.status(401).json({ auth: false }).send()
             }
