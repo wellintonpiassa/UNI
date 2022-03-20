@@ -7,7 +7,7 @@ services:
     ports:
       - 3333:3333
     env_file:
-      - .env
+      - ./backend/.env
     depends_on:
       - uni-postgres
     restart: always
@@ -18,7 +18,7 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - .env
+      - ./backend/.env
     volumes:
       - database-data:/var/lib/postgresql/data/
       - ./database/es.sql:/docker-entrypoint-initdb.d/create_tables.sql
