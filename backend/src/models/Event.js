@@ -1,67 +1,66 @@
 
 module.exports = class Event {
 
-    #nome
-    #cidade
-    #endereco
-    #dataInicio
-    #dataFim
+    #name
+    #city
+    #address
+    #startDate
+    #endDate
     #nTickets
     #emailOrganizador
-    #precoIngresso
+    #ticketPrice
 
-    constructor(nome, cidade, endereco, dataInicio, dataFim,
-        nTickets, emailOrganizador, precoIngresso) {
+    constructor(name, city, address, startDate, endDate,
+        nTickets, emailOrganizador, ticketPrice) {
 
-        this.#nome = nome
-        this.#cidade = cidade
-        this.#endereco = endereco
-        this.#dataInicio = dataInicio
-        this.#dataFim = dataFim
+        this.#name = name
+        this.#city = city
+        this.#address = address
+        this.#startDate = startDate
+        this.#endDate = endDate
         this.#nTickets = nTickets
         this.#emailOrganizador = emailOrganizador
-        this.#precoIngresso = precoIngresso
+        this.#ticketPrice = ticketPrice
     }
 
-
-    getNome() {
-        return this.#nome
+    getName() {
+        return this.#name
     }
 
-    setNome(nome) {
-        this.#nome = nome
+    setName(name) {
+        this.#name = name
     }
 
-    getCidade() {
-        return this.#cidade
+    getCity() {
+        return this.#city
     }
 
-    setCidade(cidade) {
-        this.#cidade = cidade
+    setCity(city) {
+        this.#city = city
     }
 
-    getEndereco() {
-        return this.#endereco
+    getAddress() {
+        return this.#address
     }
 
-    setEndereco(endereco) {
-        this.#endereco = endereco
+    setAddress(address) {
+        this.#address = address
     }
 
-    getDataInicio() {
-        return this.#dataInicio
+    getStartDate() {
+        return this.#startDate
     }
 
-    setDataInicio(dataInicio) {
-        this.#dataInicio = dataInicio
+    setStartDate(startDate) {
+        this.#startDate = startDate
     }
 
-    getDataFim() {
-        return this.#dataFim
+    getEndDate() {
+        return this.#endDate
     }
 
-    setDataFim(dataFim) {
-        this.#dataFim = dataFim
+    setEndDate(endDate) {
+        this.#endDate = endDate
     }
 
     getNTickets() {
@@ -80,11 +79,11 @@ module.exports = class Event {
         this.#emailOrganizador = emailOrganizador
     }
 
-    getPrecoIngresso() {
-        return this.#precoIngresso
+    getTicketPrice() {
+        return this.#ticketPrice
     }
 
-    setPrecoIngresso(precoIngresso) {
-        this.#precoIngresso = precoIngresso
+    setTicketPrice(ticketPrice) {
+        this.#ticketPrice = ticketPrice
     }
 }

@@ -32,8 +32,7 @@ class EventValidator {
                         return Promise.reject('Data de início do evento não deve ser anterior ao dia atual')
 
                     return true
-                })
-            ,
+                }),
 
             check('data_fim')
                 .notEmpty()

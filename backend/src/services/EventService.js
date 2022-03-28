@@ -42,14 +42,14 @@ class EventService {
         const [{ usuario_id }] = r // id do organizador
 
         await knex('apk.evento').insert({
-            nome: e.getNome(),
-            endereco: e.getEndereco(),
-            cidade: e.getCidade(),
-            datainicio: e.getDataInicio(),
-            datafim: e.getDataFim(),
+            nome: e.getName(),
+            endereco: e.getAddress(),
+            cidade: e.getCity(),
+            datainicio: e.getStartDate(),
+            datafim: e.getEndDate(),
             n_tickets: e.getNTickets(),
             usuario_id: usuario_id,
-            preco_ingresso: e.getPrecoIngresso()
+            preco_ingresso: e.getTicketPrice()
         })
 
         return true;

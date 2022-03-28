@@ -34,7 +34,7 @@ class EventController {
         }
     }
 
-    async create(req, res, next) {
+    async createEvent(req, res, next) {
         try {
 
             const e = req.body
@@ -43,7 +43,10 @@ class EventController {
             if (result)
                 return res.status(200).json({ created: true }).send()
             else
-                return res.status(403).json({ created: false, msg: "O e-mail informado não pertence a um organizador" }).send()
+                return res.status(403).json({
+                    created: false,
+                    msg: "O e-mail informado não pertence a um organizador"
+                }).send()
 
         } catch (error) {
             next(error)

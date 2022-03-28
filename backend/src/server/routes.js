@@ -23,7 +23,7 @@ class Routes {
             .post('/login', this.#userValidator.getLoginValidator(), this.#userController.auth)
             .get('/evento', this.#jwtAuth.verifyJWT(), this.#eventController.searchForEvents)
             .post('/evento', this.#jwtAuth.verifyJWT(), this.#eventValidator.getEventValidator(),
-                this.#eventController.create)
+                this.#eventController.createEvent)
     }
 
     getRoutes() {
