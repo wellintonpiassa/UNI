@@ -69,7 +69,16 @@ class EventValidator {
                 .notEmpty()
                 .withMessage("Campo 'Preço do ingresso' é obrigatório")
                 .matches(/^(\d{1,3}(\.\d{3})*|\d+)(\.\d{2})?$/)
-                .withMessage("Formato de preço inválido"),
+                .withMessage("Formato de preço inválido")
+                .custom(value => {
+                    let p = value.replace('.', '')
+                    let r = p.split('').every(char => char === '0')
+
+                    if (r === true)
+                        return Promise.reject('Preço do ingresso deve ser maior do que 0')
+
+                    return true
+                }),
 
             (req, res, next) => {
 
