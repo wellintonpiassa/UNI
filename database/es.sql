@@ -37,6 +37,9 @@ CREATE TABLE APK.evento(
 	N_Tickets INT,
 	IdEvento SERIAL,
 	Usuario_id INT NOT NULL,
+	preco_ingresso Decimal(12,2),
+	url_imagem_banner VARCHAR(100),
+	descricao_do_evento VARCHAR(100),
 	CONSTRAINT pk_evento PRIMARY KEY(IdEvento),
 	CONSTRAINT fk_evento FOREIGN KEY(usuario_id)
 		REFERENCES APK.organizador
@@ -54,4 +57,3 @@ CREATE TABLE APK.participa(
 		REFERENCES APK.evento(IdEvento)
 		ON DELETE CASCADE
 );
-
