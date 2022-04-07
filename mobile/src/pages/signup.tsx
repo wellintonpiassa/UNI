@@ -125,6 +125,7 @@ const SignUp = () => {
             <TextInput
               errorMessage={errors.password}
               placeholder="Senha"
+              secureTextEntry
               value={values.password}
               onChangeText={handleChange('password')}
             />

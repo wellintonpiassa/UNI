@@ -83,6 +83,7 @@ const SignIn = () => {
                 errorMessage={errors.password}
                 placeholder="Senha"
                 value={values.password}
+                secureTextEntry
                 onChangeText={handleChange('password')}
               />
               <View style={styles.Footer}>
