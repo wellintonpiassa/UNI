@@ -80,6 +80,18 @@ class EventValidator {
                     return true
                 }),
 
+            check('url_imagem_banner')
+                .notEmpty()
+                .withMessage("Campo 'Url_imagem_banner' é obrigatório")
+                .isLength({ max: 100 })
+                .withMessage("Campo 'Url_imagem_banner' deve ter até 100 caracteres"),
+
+            check('descricao_do_evento')
+                .notEmpty()
+                .withMessage("Campo 'Descrição do evento' é obrigatório")
+                .isLength({ max: 100 })
+                .withMessage("Campo 'Descrição do evento' deve ter até 100 caracteres"),
+
             (req, res, next) => {
 
                 const errors = validationResult(req);

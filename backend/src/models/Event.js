@@ -9,9 +9,11 @@ module.exports = class Event {
     #nTickets
     #emailOrganizador
     #ticketPrice
+    #urlImagemBanner
+    #descricaoDoEvento
 
     constructor(name, city, address, startDate, endDate,
-        nTickets, emailOrganizador, ticketPrice) {
+        nTickets, emailOrganizador, ticketPrice, urlImagemBanner, descricaoDoEvento) {
 
         this.#name = name
         this.#city = city
@@ -21,6 +23,8 @@ module.exports = class Event {
         this.#nTickets = nTickets
         this.#emailOrganizador = emailOrganizador
         this.#ticketPrice = ticketPrice
+        this.#urlImagemBanner = urlImagemBanner
+        this.#descricaoDoEvento = descricaoDoEvento
     }
 
     getName() {
@@ -85,5 +89,21 @@ module.exports = class Event {
 
     setTicketPrice(ticketPrice) {
         this.#ticketPrice = ticketPrice
+    }
+
+    getUrlImagemBanner() {
+        return this.#urlImagemBanner
+    }
+
+    setUrlImagemBanner(urlImagemBanner) {
+        this.#urlImagemBanner = urlImagemBanner
+    }
+
+    getDescricaoDoEvento() {
+        return this.#descricaoDoEvento
+    }
+
+    setDescricaoDoEvento(descricaoDoEvento) {
+        this.#descricaoDoEvento = descricaoDoEvento
     }
 }
