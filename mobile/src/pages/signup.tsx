@@ -125,8 +125,8 @@ const SignUp = () => {
             <TextInput
               errorMessage={errors.password}
               placeholder="Senha"
-              secureTextEntry
               value={values.password}
+              secureTextEntry
               onChangeText={handleChange('password')}
             />
             <View style={styles.Footer}>
