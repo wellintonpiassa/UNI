@@ -21,7 +21,7 @@ class UserService {
 
         }).returning('identificador')
 
-        if (usuario.administrador === 'true')
+        if (usuario.administrador)
             await knex('apk.organizador').insert({ usuario_id: parseInt(identificador) })
 
         else
