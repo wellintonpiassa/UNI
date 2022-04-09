@@ -27,7 +27,8 @@ class EventService {
     async create(event) {
 
         const e = new Event(event.nome, event.cidade, event.endereco, event.data_inicio,
-            event.data_fim, event.n_tickets, event.email_organizador, event.preco_ingresso
+            event.data_fim, event.n_tickets, event.email_organizador, event.preco_ingresso,
+            event.url_imagem_banner, event.descricao_do_evento
         )
 
         // verificando se o usuário com o email e existe e se é um organizador
@@ -49,7 +50,9 @@ class EventService {
             datafim: e.getEndDate(),
             n_tickets: e.getNTickets(),
             usuario_id: usuario_id,
-            preco_ingresso: e.getTicketPrice()
+            preco_ingresso: e.getTicketPrice(),
+            url_imagem_banner: e.getUrlImagemBanner(),
+            descricao_do_evento: e.getDescricaoDoEvento()
         })
 
         return true;
