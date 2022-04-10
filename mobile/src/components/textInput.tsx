@@ -30,7 +30,7 @@ const TextInput: React.FC<Props> = ({
         theme={{ colors: { text: '#150050' } }}
         underlineColor="transparent"
       />
-      <ErrorText>{errorMessage}</ErrorText>
+      {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
     </View>
   );
 };

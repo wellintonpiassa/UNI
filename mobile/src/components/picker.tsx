@@ -20,6 +20,7 @@ const Picker: React.FC<FormPickerProps> = ({
   errorMessage,
   placeholder = 'Selecione uma opção',
   options,
+  containerStyle,
   onChange,
 }) => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -31,7 +32,7 @@ const Picker: React.FC<FormPickerProps> = ({
 
   return (
     <View>
-      <View style={styles.PickerContainer}>
+      <View style={[styles.PickerContainer, containerStyle]}>
         <ReactPicker
           dropdownIconColor="white"
           selectedValue={selectedItem}
@@ -47,7 +48,7 @@ const Picker: React.FC<FormPickerProps> = ({
         </ReactPicker>
         <Icon color="black" name="chevron-down" size={25} style={styles.Icon} />
       </View>
-      <ErrorText>{errorMessage}</ErrorText>
+      {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
     </View>
   );
 };
