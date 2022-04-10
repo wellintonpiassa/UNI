@@ -7,7 +7,7 @@ class JWTAuth {
 
     getJWT(email) {
         const token = jwt.sign({ email }, process.env.SECRET, {
-            expiresIn: 900  // o token expira em 15 minutos
+            expiresIn: 86400  // o token expira em 24 horas.
         });
 
         return token;
