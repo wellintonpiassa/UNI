@@ -81,6 +81,7 @@ const CreateEvent = () => {
 
   return (
     <ScrollView style={styles.Background}>
+      <Text style={styles.Titulo}>Criar Evento</Text>
       <Formik
         initialValues={initialInfo}
         validateOnChange={false}
@@ -97,16 +98,14 @@ const CreateEvent = () => {
                 onChangeText={handleChange('name')}
               />
             </View>
-            <View style={styles.NameContainer}>
+            <View style={styles.AddressContainer}>
               <TextInput
-                containerStyle={styles.Name}
+                containerStyle={styles.Input}
                 errorMessage={errors.address}
                 placeholder="Endereço"
                 value={values.address}
                 onChangeText={handleChange('address')}
               />
-            </View>
-            <View style={styles.InfoContainer}>
               <Picker
                 errorMessage={errors.city}
                 options={[
@@ -144,6 +143,7 @@ const CreateEvent = () => {
                 onChange={handleChange('city')}
               />
             </View>
+            
             <View style={styles.Row}>
               <DatePicker
                 containerStyle={styles.startDate}
@@ -159,6 +159,8 @@ const CreateEvent = () => {
                 onChange={handleChange('startTime')}
                 mode="time"
               />
+            </View>
+            <View style={styles.Row}>
               <DatePicker
                 containerStyle={styles.startDate}
                 errorMessage={errors.endDate}
@@ -176,26 +178,29 @@ const CreateEvent = () => {
             </View>
             <View style={styles.AccountContainer}>
               <TextInput
+                containerStyle={styles.Input}
                 errorMessage={errors.tickets}
                 placeholder="Número de ingressos"
                 value={values.tickets}
                 onChangeText={handleChange('tickets')}
               />
               <TextInput
-                containerStyle={styles.Name}
+                containerStyle={styles.Input}
                 errorMessage={errors.price}
-                placeholder="Preço"
+                placeholder="Preço do Ingresso"
                 value={values.price}
                 onChangeText={handleChange('price')}
               />
             </View>
             <TextInput
+              containerStyle={styles.Input}
               errorMessage={errors.imageURL}
               placeholder="URL da imagem do evento"
               value={values.imageURL}
               onChangeText={handleChange('imageURL')}
             />
             <TextInput
+              containerStyle={styles.Input}
               errorMessage={errors.description}
               placeholder="Descrição sobre o evento"
               value={values.description}
@@ -214,16 +219,23 @@ const CreateEvent = () => {
 };
 
 const styles = StyleSheet.create({
-  NameContainer: { marginBottom: 20 },
-  InfoContainer: { marginTop: 10, marginBottom: 10 },
+  NameContainer: { marginTop: 30, marginBottom: 0 },
+  AddressContainer : {marginBottom: 20},
+  InfoContainer: {  marginBottom: 10 },
   AccountContainer: { marginTop: 20, marginBottom: 10 },
+  Input: {paddingBottom: 10},
+  Titulo: {
+    flex: 1, 
+    fontSize: 30,
+    textAlign: 'center'
+  },
   Background: {
     flex: 1,
     backgroundColor: '#150050',
     paddingHorizontal: 20,
   },
   Name: {
-    marginBottom: 10,
+    marginBottom: 30,
   },
   Row: {
     flexDirection: 'row',
@@ -235,6 +247,7 @@ const styles = StyleSheet.create({
   },
   startDate: {
     flex: 1,
+    paddingHorizontal: 5
   },
   Footer: {
     alignItems: 'center',
