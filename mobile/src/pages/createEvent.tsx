@@ -11,6 +11,7 @@ import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
 import { createEvent } from '../services/event';
+import { event } from 'react-native-reanimated';
 
 interface FormData {
   name: string;
@@ -36,10 +37,10 @@ const CreateEvent = () => {
     address: Yup.string().required('Campo obrigatório'),
     startDate: Yup.string().required('Campo obrigatório'),
     endDate: Yup.string().required('Campo obrigatório'),
-    tickets: Yup.string()
+    tickets: Yup.number().positive("Deve ser maior que 0")
       .required('Campo obrigatório')
       .min(1, 'Deve ter no mínimo 1 Ingresso'),
-    price: Yup.string().required('Campo obrigatório'),
+    price: Yup.number().positive("Deve ser maior que 0").integer('Campo obrigatório'),
     imageURL: Yup.string().required('Campo obrigatório'),
     description: Yup.string().required('Campo obrigatório'),
     startTime: Yup.string().required('Campo obrigatório'),
@@ -64,18 +65,10 @@ const CreateEvent = () => {
     values: FormData,
     { setSubmitting }: FormikHelpers<FormData>,
   ) {
-    const [hoursStart, minutesStart] = values.startTime.split(':').map(value => parseInt(value, 10));
-    const startDateTime = new Date(values.startDate);
-    startDateTime.setHours(hoursStart, minutesStart);
-
-    const [hoursEnd, minutesEnd] = values.endTime.split(':').map(value => parseInt(value, 10));
-    const endDateTime = new Date(values.endDate);
-    endDateTime.setHours(hoursEnd, minutesEnd);
-    console.log(values);
-
+    const startDateTime = new Date(values.startDate +' '+values.startTime);
+    const endDateTime = new Date(values.endDate +' '+values.endTime);
     const eventInfo = {
       ...values, 
-      price:Number(values.price), 
       tickets:Number(values.tickets) , 
       email: userInfo.email,
       startDateTime, endDateTime
@@ -155,6 +148,7 @@ const CreateEvent = () => {
               <DatePicker
                 containerStyle={styles.startDate}
                 errorMessage={errors.startDate}
+                minDate={new Date()}
                 placeholder="Data de Inicio"
                 onChange={handleChange('startDate')}
               />
@@ -168,6 +162,7 @@ const CreateEvent = () => {
               <DatePicker
                 containerStyle={styles.startDate}
                 errorMessage={errors.endDate}
+                minDate={new Date()}
                 placeholder="Data de Fim"
                 onChange={handleChange('endDate')}
               />

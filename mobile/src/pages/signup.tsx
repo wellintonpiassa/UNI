@@ -116,6 +116,7 @@ const SignUp = () => {
               <DatePicker
                 containerStyle={styles.Birthday}
                 errorMessage={errors.birthday}
+                maxDate={new Date()}
                 placeholder="Data de nascimento"
                 onChange={handleChange('birthday')}
               />

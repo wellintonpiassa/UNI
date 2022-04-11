@@ -1,4 +1,6 @@
 import api from './api';
+import { ptBR } from 'date-fns/locale';
+import {format} from 'date-fns';
 
 export interface EventBase {
   address: string;
@@ -7,7 +9,7 @@ export interface EventBase {
   endDateTime: Date;
   imageURL: string;
   name: string;
-  price: number;
+  price: string;
   startDateTime: Date;
   tickets: number;
 }
@@ -24,7 +26,6 @@ export interface Event extends CreateEvent {
 interface ListEventsOptions {
   page?: number;
 }
-
 
 interface ListEventsOptions {
   page?: number;
@@ -61,33 +62,20 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
 
 export async function createEvent(event: CreateEvent) : Promise<boolean> {
   try {
-    console.log({
-      endereco: event.address,
-      cidade: event.city,
-      descricao_do_evento: event.description,
-      data_fim: event.endDateTime,
-      url_imagem_banner: event.imageURL,
-      nome: event.name,
-      preco_ingresso: event.price,
-      data_inicio: event.startDateTime,
-      n_tickets: event.tickets,
-      email_organizador: event.email
-   })
     const {data}=   await api.post('/evento', {
        endereco: event.address,
        cidade: event.city,
        descricao_do_evento: event.description,
-       data_fim: event.endDateTime.toISOString(),
+       data_fim: format( event.endDateTime , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {locale: ptBR}),
        url_imagem_banner: event.imageURL,
        nome: event.name,
        preco_ingresso: event.price,
-       data_inicio: event.startDateTime.toString(),
+       data_inicio: format( event.startDateTime , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {locale: ptBR}),
        n_tickets: event.tickets,
        email_organizador: event.email
     });
        return data.created;
   } catch (e) {
-    console.log(e);
     return false 
   }
 }

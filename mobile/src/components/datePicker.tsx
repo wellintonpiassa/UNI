@@ -12,6 +12,7 @@ interface FormDateProps {
   placeholder: string;
   errorMessage?: string;
   maxDate?: Date;
+  minDate?: Date;
   containerStyle?: StyleProp<ViewStyle>;
   mode?: string;
   onChange: (fieldValue: string) => void;
@@ -20,7 +21,8 @@ interface FormDateProps {
 const DatePicker: React.FC<FormDateProps> = ({
   errorMessage,
   placeholder,
-  maxDate = new Date(),
+  maxDate,
+  minDate,
   containerStyle,
   mode = 'date',
   onChange,
@@ -63,7 +65,8 @@ const DatePicker: React.FC<FormDateProps> = ({
           display="default"
           maximumDate={maxDate}
           mode={mode as any}
-          value={date || maxDate}
+          minimumDate={minDate}
+          value={date || new Date()}
           onChange={handleDateSelected}
         />
       )}
