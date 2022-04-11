@@ -1,8 +1,9 @@
-import api from './api';
+import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import {format} from 'date-fns';
 
-export interface EventBase {
+import api from './api';
+
+interface EventBase {
   address: string;
   city: string;
   description: string;
@@ -11,10 +12,10 @@ export interface EventBase {
   name: string;
   price: string;
   startDateTime: Date;
-  tickets: number;
+  tickets: string;
 }
 
-export interface CreateEvent extends EventBase {
+interface CreateEvent extends EventBase {
   email: string;
 }
 
@@ -60,22 +61,26 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
   }
 }
 
-export async function createEvent(event: CreateEvent) : Promise<boolean> {
+export async function createEvent(event: CreateEvent): Promise<boolean> {
   try {
-    const {data}=   await api.post('/evento', {
-       endereco: event.address,
-       cidade: event.city,
-       descricao_do_evento: event.description,
-       data_fim: format( event.endDateTime , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {locale: ptBR}),
-       url_imagem_banner: event.imageURL,
-       nome: event.name,
-       preco_ingresso: event.price,
-       data_inicio: format( event.startDateTime , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {locale: ptBR}),
-       n_tickets: event.tickets,
-       email_organizador: event.email
+    const { data } = await api.post('/evento', {
+      endereco: event.address,
+      cidade: event.city,
+      descricao_do_evento: event.description,
+      data_fim: format(event.endDateTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {
+        locale: ptBR,
+      }),
+      url_imagem_banner: event.imageURL,
+      nome: event.name,
+      preco_ingresso: event.price,
+      data_inicio: format(event.startDateTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {
+        locale: ptBR,
+      }),
+      n_tickets: event.tickets,
+      email_organizador: event.email,
     });
-       return data.created;
+    return data.created;
   } catch (e) {
-    return false 
+    return false;
   }
 }
