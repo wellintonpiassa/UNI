@@ -1,17 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
 import * as Yup from 'yup';
 
-import { useAuth } from '../contexts/auth';
 import DatePicker from '../components/datePicker';
 import Picker from '../components/picker';
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
+import { useAuth } from '../contexts/auth';
 import { createEvent } from '../services/event';
-import { event } from 'react-native-reanimated';
 
 interface FormData {
   name: string;
@@ -37,10 +35,15 @@ const CreateEvent = () => {
     address: Yup.string().required('Campo obrigatório'),
     startDate: Yup.string().required('Campo obrigatório'),
     endDate: Yup.string().required('Campo obrigatório'),
-    tickets: Yup.number().positive("Deve ser maior que 0")
+    tickets: Yup.number()
+      .typeError('Deve ser um número')
+      .positive('Deve ser maior que 0')
       .required('Campo obrigatório')
       .min(1, 'Deve ter no mínimo 1 Ingresso'),
-    price: Yup.number().positive("Deve ser maior que 0").integer('Campo obrigatório'),
+    price: Yup.number()
+      .typeError('Deve ser um número')
+      .positive('Deve ser maior que 0')
+      .integer('Campo obrigatório'),
     imageURL: Yup.string().required('Campo obrigatório'),
     description: Yup.string().required('Campo obrigatório'),
     startTime: Yup.string().required('Campo obrigatório'),
@@ -58,25 +61,25 @@ const CreateEvent = () => {
     imageURL: '',
     description: '',
     startTime: '',
-    endTime: ''
+    endTime: '',
   };
 
   async function handleFormSubmit(
     values: FormData,
     { setSubmitting }: FormikHelpers<FormData>,
   ) {
-    const startDateTime = new Date(values.startDate +' '+values.startTime);
-    const endDateTime = new Date(values.endDate +' '+values.endTime);
+    const startDateTime = new Date(values.startDate + ' ' + values.startTime);
+    const endDateTime = new Date(values.endDate + ' ' + values.endTime);
     const eventInfo = {
-      ...values, 
-      tickets:Number(values.tickets) , 
+      ...values,
       email: userInfo.email,
-      startDateTime, endDateTime
-    }
+      startDateTime,
+      endDateTime,
+    };
     setSubmitting(true);
 
     const status = await createEvent(eventInfo);
-    navigation.navigate('CreateEventStatus', {status});
+    navigation.navigate('CreateEventStatus', { status });
   }
 
   return (
@@ -155,9 +158,9 @@ const CreateEvent = () => {
               <DatePicker
                 containerStyle={styles.startDate}
                 errorMessage={errors.startTime}
+                mode="time"
                 placeholder="Horario de Inicio"
                 onChange={handleChange('startTime')}
-                mode="time"
               />
             </View>
             <View style={styles.Row}>
@@ -171,9 +174,9 @@ const CreateEvent = () => {
               <DatePicker
                 containerStyle={styles.startDate}
                 errorMessage={errors.endTime}
+                mode="time"
                 placeholder="Horario de Fim"
                 onChange={handleChange('endTime')}
-                mode="time"
               />
             </View>
             <View style={styles.AccountContainer}>
