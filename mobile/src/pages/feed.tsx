@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
-import { FAB, TextInput as PaperTextInput } from 'react-native-paper';
+import { FAB, Portal, TextInput as PaperTextInput } from 'react-native-paper';
 
 import EventCard from '../components/eventCard';
+import FeedModal from '../components/feedModal';
 import TextInput from '../components/textInput';
 import { listEvents } from '../services/event';
 
@@ -14,6 +15,7 @@ import type { DrawerNavigationProp } from '@react-navigation/drawer';
 const Feed = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
@@ -28,6 +30,13 @@ const Feed = () => {
 
   return (
     <View style={styles.Container}>
+      <Portal>
+        <FeedModal
+          isVisible={isFilterModalVisible}
+          setEvents={setEvents}
+          setIsVisible={setIsFilterModalVisible}
+        />
+      </Portal>
       <FAB
         icon="plus"
         style={styles.FAB}
@@ -41,13 +50,19 @@ const Feed = () => {
               left={
                 <PaperTextInput.Icon
                   color="#757575"
+                  forceTextInputFocus={false}
                   name="menu"
                   onPress={() => navigation.openDrawer()}
                 />
               }
               placeholder="Buscar"
               right={
-                <PaperTextInput.Icon color="#757575" name="filter-variant" />
+                <PaperTextInput.Icon
+                  color="#757575"
+                  forceTextInputFocus={false}
+                  name="filter-variant"
+                  onPress={() => setIsFilterModalVisible(true)}
+                />
               }
               style={styles.SearchBar}
             />
@@ -56,10 +71,10 @@ const Feed = () => {
         contentContainerStyle={styles.Background}
         data={events}
         keyExtractor={item => item.id}
-        renderItem={({ item: { image, description, name } }) => (
+        renderItem={({ item: { imageURL, description, name } }) => (
           <View style={styles.EventContainer}>
             <EventCard
-              imageURI={image}
+              imageURI={imageURL}
               isFavorite={false}
               subtitle={description}
               title={name}
@@ -106,6 +121,9 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 24,
     marginBottom: 10,
+  },
+  FilterModal: {
+    backgroundColor: 'white',
   },
 });
 

@@ -73,12 +73,14 @@ const SignIn = () => {
           onSubmit={handleFormSubmit}>
           {({ values, errors, handleChange, handleSubmit }) => (
             <View>
-              <TextInput
-                errorMessage={errors.email}
-                placeholder="Email"
-                value={values.email}
-                onChangeText={handleChange('email')}
-              />
+              <View style={styles.EmailContainer}>
+                <TextInput
+                  errorMessage={errors.email}
+                  placeholder="Email"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                />
+              </View>
               <TextInput
                 errorMessage={errors.password}
                 placeholder="Senha"
@@ -111,6 +113,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#150050',
     paddingHorizontal: 20,
+  },
+  EmailContainer: {
+    marginBottom: 10,
   },
   ModalContainer: {
     backgroundColor: 'white',

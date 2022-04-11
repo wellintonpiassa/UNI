@@ -4,24 +4,28 @@ export interface Event {
   address: string;
   city: string;
   description: string;
-  end_date: string;
+  endDate: string;
   id: string;
-  image: string;
+  imageURL: string;
   name: string;
-  price: string;
-  start_date: string;
-  tickets: string;
+  price: number;
+  startDate: string;
+  tickets: number;
   userId: string;
 }
 
 interface ListEventsOptions {
   page?: number;
+  filterByDate?: boolean;
+  filterByCity?: string;
 }
 
 export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
-  let url = '/evento';
-  if (options.page) {
-    url += `?pagina=${options.page}`;
+  let url = `/evento?pagina=${options.page}&proximos30d=${
+    options.filterByDate ? 1 : 0
+  }`;
+  if (options.filterByCity) {
+    url += `&cidade=${encodeURIComponent(options.filterByCity.toLowerCase())}`;
   }
   try {
     const { data } = await api.get(url);
@@ -29,12 +33,12 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
       address: event.endereco,
       city: event.cidade,
       description: event.descricao_do_evento,
-      end_date: event.datafim,
+      endDate: event.datafim,
       id: event.idevento,
-      image: event.url_imagem_banner,
+      imageURL: event.url_imagem_banner,
       name: event.nome,
       price: event.preco_ingresso,
-      start_date: event.datainicio,
+      startDate: event.datainicio,
       tickets: event.n_tickets,
       userId: event.usuario_id,
     }));
