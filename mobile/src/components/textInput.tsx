@@ -16,6 +16,7 @@ type Props = TextInputPaperProps & {
 const TextInput: React.FC<Props> = ({
   containerStyle,
   errorMessage,
+  style,
   ...props
 }) => {
   return (
@@ -25,7 +26,7 @@ const TextInput: React.FC<Props> = ({
         activeOutlineColor="transparent"
         activeUnderlineColor="transparent"
         placeholderTextColor="#150050"
-        style={styles.TextInput}
+        style={[style, styles.TextInput]}
         theme={{ colors: { text: '#150050' } }}
         underlineColor="transparent"
       />
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     height: 50,
+    width: '100%',
     borderRadius: 50,
     backgroundColor: 'white',
     color: '#150050',
