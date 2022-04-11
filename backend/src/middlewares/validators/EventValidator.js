@@ -23,16 +23,7 @@ class EventValidator {
                 .notEmpty()
                 .withMessage("Campo 'Data de início do evento' é obrigatório")
                 .isISO8601()
-                .withMessage("Formato de data inválido")
-                .custom(value => {
-                    let date = new Date(value)
-                    let today = new Date()
-
-                    if (today > date)
-                        return Promise.reject('Data de início do evento não deve ser anterior ao dia atual')
-
-                    return true
-                }),
+                .withMessage("Formato de data inválido"),
 
             check('data_fim')
                 .notEmpty()
@@ -41,11 +32,7 @@ class EventValidator {
                 .withMessage("Formato de data inválido")
                 .custom((value, { req }) => {
                     let date = new Date(value)
-                    let today = new Date()
                     let date_inicio = new Date(req.body.data_inicio)
-
-                    if (today > date)
-                        return Promise.reject('Data de fim do evento não deve ser anterior ao dia atual')
 
                     if (date < date_inicio)
                         return Promise.reject('Data de fim do evento não deve ser anterior à data de início')
