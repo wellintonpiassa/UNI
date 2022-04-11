@@ -40,7 +40,7 @@ const Feed = () => {
       <FAB
         icon="plus"
         style={styles.FAB}
-        onPress={() => navigation.navigate('EventCreate')}
+        onPress={() => {navigation.navigate('CreateEvent')}}
       />
       <FlatList<Event>
         ListHeaderComponent={
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+    zIndex: 1
   },
   EventContainer: {
     paddingLeft: 24,

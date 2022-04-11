@@ -39,7 +39,7 @@ const DatePicker: React.FC<FormDateProps> = ({
     setShow(Platform.OS === 'ios');
     if (value) {
       if (mode === 'date') {
-        onChange(format(value, 'dd/MM/yyyy'));
+        onChange(format(value, 'yyyy-MM-dd'));
       } else if (value && mode === 'time') {
         onChange(format(value, 'HH:mm:ss'));
       }

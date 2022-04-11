@@ -1,18 +1,30 @@
 import api from './api';
 
-export interface Event {
+export interface EventBase {
   address: string;
   city: string;
   description: string;
-  endDate: string;
-  id: string;
+  endDateTime: Date;
   imageURL: string;
   name: string;
   price: number;
-  startDate: string;
+  startDateTime: Date;
   tickets: number;
+}
+
+export interface CreateEvent extends EventBase {
+  email: string;
+}
+
+export interface Event extends CreateEvent {
+  id: string;
   userId: string;
 }
+
+interface ListEventsOptions {
+  page?: number;
+}
+
 
 interface ListEventsOptions {
   page?: number;
@@ -44,5 +56,38 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
     }));
   } catch (e) {
     return [];
+  }
+}
+
+export async function createEvent(event: CreateEvent) : Promise<boolean> {
+  try {
+    console.log({
+      endereco: event.address,
+      cidade: event.city,
+      descricao_do_evento: event.description,
+      data_fim: event.endDateTime,
+      url_imagem_banner: event.imageURL,
+      nome: event.name,
+      preco_ingresso: event.price,
+      data_inicio: event.startDateTime,
+      n_tickets: event.tickets,
+      email_organizador: event.email
+   })
+    const {data}=   await api.post('/evento', {
+       endereco: event.address,
+       cidade: event.city,
+       descricao_do_evento: event.description,
+       data_fim: event.endDateTime.toISOString(),
+       url_imagem_banner: event.imageURL,
+       nome: event.name,
+       preco_ingresso: event.price,
+       data_inicio: event.startDateTime.toString(),
+       n_tickets: event.tickets,
+       email_organizador: event.email
+    });
+       return data.created;
+  } catch (e) {
+    console.log(e);
+    return false 
   }
 }
