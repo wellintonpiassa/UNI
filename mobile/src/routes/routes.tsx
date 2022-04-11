@@ -9,6 +9,7 @@ import About from '../pages/about';
 import Introduction from '../pages/introduction';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
+import CreateEvent from '../pages/createEvent'
 
 import FeedNavigator from './feedNavigator';
 
@@ -18,7 +19,10 @@ export type RootStackParamList = {
   SignIn: undefined;
   Feed: undefined;
   About: undefined;
-};
+  CreateEvent: undefined;
+  CreateEventStatus: { status: boolean};
+}
+
 
 // Rotas utilizadas quando o usuário não realizou login.
 const AuthRoutes: React.FC = () => {
@@ -67,6 +71,11 @@ const AppRoutes: React.FC = () => {
       <Stack.Screen
         component={FeedNavigator}
         name={'FeedNavigator' as keyof RootStackParamList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CreateEvent}
+        name="CreateEvent"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
