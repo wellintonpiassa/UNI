@@ -10,6 +10,7 @@ import Introduction from '../pages/introduction';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
 import CreateEvent from '../pages/createEvent'
+import CreateEventStatus from '../pages/createEventStatus'
 
 import FeedNavigator from './feedNavigator';
 
@@ -76,6 +77,11 @@ const AppRoutes: React.FC = () => {
       <Stack.Screen
         component={CreateEvent}
         name="CreateEvent"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CreateEventStatus}
+        name="CreateEventStatus"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
