@@ -2,21 +2,28 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
+import React from 'react';
 
 import { useAuth } from '../contexts/auth';
 import About from '../pages/about';
-import Home from '../pages/home';
 import Introduction from '../pages/introduction';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
+import CreateEvent from '../pages/createEvent'
+import CreateEventStatus from '../pages/createEventStatus'
+
+import FeedNavigator from './feedNavigator';
 
 export type RootStackParamList = {
   Introduction: undefined;
   SignUp: undefined;
   SignIn: undefined;
-  Home: undefined;
+  Feed: undefined;
   About: undefined;
-};
+  CreateEvent: undefined;
+  CreateEventStatus: { status: boolean};
+}
+
 
 // Rotas utilizadas quando o usuário não realizou login.
 const AuthRoutes: React.FC = () => {
@@ -63,8 +70,18 @@ const AppRoutes: React.FC = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       <Stack.Screen
-        component={Home}
-        name="Home"
+        component={FeedNavigator}
+        name={'FeedNavigator' as keyof RootStackParamList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CreateEvent}
+        name="CreateEvent"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CreateEventStatus}
+        name="CreateEventStatus"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

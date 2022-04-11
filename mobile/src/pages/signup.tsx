@@ -73,34 +73,38 @@ const SignUp = () => {
         onSubmit={handleFormSubmit}>
         {({ values, errors, isSubmitting, handleChange, handleSubmit }) => (
           <View>
-            <TextInput
-              containerStyle={styles.Name}
-              errorMessage={errors.name}
-              placeholder="Nome Completo"
-              value={values.name}
-              onChangeText={handleChange('name')}
-            />
+            <View style={styles.NameContainer}>
+              <TextInput
+                containerStyle={styles.Name}
+                errorMessage={errors.name}
+                placeholder="Nome Completo"
+                value={values.name}
+                onChangeText={handleChange('name')}
+              />
+            </View>
             <Picker
               errorMessage={errors.type}
               options={['Universitário', 'Organizador de eventos']}
               placeholder="Tipo de usuário"
               onChange={handleChange('type')}
             />
-            <Picker
-              errorMessage={errors.group}
-              options={[
-                'Não',
-                'Exatas UEL',
-                'ASCOF UEL',
-                'XXI de Agosto',
-                'XV de Setembro',
-                'Educa UEL',
-                'Pio XII',
-                'V de Outubro',
-              ]}
-              placeholder="Participa de alguma atlética?"
-              onChange={handleChange('group')}
-            />
+            <View style={styles.InfoContainer}>
+              <Picker
+                errorMessage={errors.group}
+                options={[
+                  'Não',
+                  'Exatas UEL',
+                  'ASCOF UEL',
+                  'XXI de Agosto',
+                  'XV de Setembro',
+                  'Educa UEL',
+                  'Pio XII',
+                  'V de Outubro',
+                ]}
+                placeholder="Participa de alguma atlética?"
+                onChange={handleChange('group')}
+              />
+            </View>
             <View style={styles.Row}>
               <TextInput
                 containerStyle={styles.Phone}
@@ -112,20 +116,24 @@ const SignUp = () => {
               <DatePicker
                 containerStyle={styles.Birthday}
                 errorMessage={errors.birthday}
+                maxDate={new Date()}
                 placeholder="Data de nascimento"
                 onChange={handleChange('birthday')}
               />
             </View>
-            <TextInput
-              errorMessage={errors.email}
-              placeholder="Email"
-              value={values.email}
-              onChangeText={handleChange('email')}
-            />
+            <View style={styles.AccountContainer}>
+              <TextInput
+                errorMessage={errors.email}
+                placeholder="Email"
+                value={values.email}
+                onChangeText={handleChange('email')}
+              />
+            </View>
             <TextInput
               errorMessage={errors.password}
               placeholder="Senha"
               value={values.password}
+              secureTextEntry
               onChangeText={handleChange('password')}
             />
             <View style={styles.Footer}>
@@ -141,6 +149,9 @@ const SignUp = () => {
 };
 
 const styles = StyleSheet.create({
+  NameContainer: { marginBottom: 20 },
+  InfoContainer: { marginTop: 10, marginBottom: 10 },
+  AccountContainer: { marginTop: 20, marginBottom: 10 },
   Background: {
     flex: 1,
     backgroundColor: '#150050',
@@ -169,7 +180,7 @@ const styles = StyleSheet.create({
   },
   Footer: {
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 20,
   },
 });
 

@@ -27,3 +27,33 @@ CREATE TABLE APK.universitario(
 		ON DELETE CASCADE,
 	CONSTRAINT pk_universitario PRIMARY KEY(usuario_id)
 );
+
+CREATE TABLE APK.evento(
+	Nome VARCHAR(50),
+	Cidade VARCHAR(50),
+	Endereco VARCHAR(50),
+	DataInicio TIMESTAMP,
+	DataFim TIMESTAMP,
+	N_Tickets INT,
+	IdEvento SERIAL,
+	Usuario_id INT NOT NULL,
+	preco_ingresso Decimal(12,2),
+	url_imagem_banner VARCHAR(100),
+	descricao_do_evento VARCHAR(100),
+	CONSTRAINT pk_evento PRIMARY KEY(IdEvento),
+	CONSTRAINT fk_evento FOREIGN KEY(usuario_id)
+		REFERENCES APK.organizador
+		ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE APK.participa(
+	usuario_id INT,
+	evento_id INT,
+	CONSTRAINT pk_participa PRIMARY KEY(evento_id,usuario_id),
+	CONSTRAINT fk_participa_usuario FOREIGN KEY(usuario_id)
+		REFERENCES APK.usuario(identificador)
+		ON DELETE CASCADE,
+	CONSTRAINT fk_participa_evento FOREIGN KEY(evento_id)
+		REFERENCES APK.evento(IdEvento)
+		ON DELETE CASCADE
+);

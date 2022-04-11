@@ -12,5 +12,6 @@ module.exports = {
         runtime: 'automatic',
       },
     ],
+    'react-native-reanimated/plugin',
   ],
 };
