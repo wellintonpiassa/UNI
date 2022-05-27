@@ -1,5 +1,4 @@
 CREATE SCHEMA APK
-
 CREATE TABLE APK.usuario(
 	identificador SERIAL,
 	nome VARCHAR(30),
@@ -27,7 +26,6 @@ CREATE TABLE APK.universitario(
 		ON DELETE CASCADE,
 	CONSTRAINT pk_universitario PRIMARY KEY(usuario_id)
 );
-
 CREATE TABLE APK.evento(
 	Nome VARCHAR(50),
 	Cidade VARCHAR(50),
@@ -40,6 +38,7 @@ CREATE TABLE APK.evento(
 	preco_ingresso Decimal(12,2),
 	url_imagem_banner VARCHAR(100),
 	descricao_do_evento VARCHAR(100),
+	n_de_favoritos INT,
 	CONSTRAINT pk_evento PRIMARY KEY(IdEvento),
 	CONSTRAINT fk_evento FOREIGN KEY(usuario_id)
 		REFERENCES APK.organizador
@@ -54,6 +53,18 @@ CREATE TABLE APK.participa(
 		REFERENCES APK.usuario(identificador)
 		ON DELETE CASCADE,
 	CONSTRAINT fk_participa_evento FOREIGN KEY(evento_id)
+		REFERENCES APK.evento(IdEvento)
+		ON DELETE CASCADE
+);
+
+CREATE TABLE APK.favorita(
+	usuario_id INT,
+	evento_id INT,
+	CONSTRAINT pk_favorita PRIMARY KEY(evento_id,usuario_id),
+	CONSTRAINT fk_favorita_usuario FOREIGN KEY(usuario_id)
+		REFERENCES APK.usuario(identificador)
+		ON DELETE CASCADE,
+	CONSTRAINT fk_favorita_evento FOREIGN KEY(evento_id)
 		REFERENCES APK.evento(IdEvento)
 		ON DELETE CASCADE
 );
