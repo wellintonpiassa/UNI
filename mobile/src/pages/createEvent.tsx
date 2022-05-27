@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import * as Yup from 'yup';
 
 import DatePicker from '../components/datePicker';
@@ -77,7 +78,6 @@ const CreateEvent = () => {
       endDateTime,
     };
     setSubmitting(true);
-
     const status = await createEvent(eventInfo);
     navigation.navigate('CreateEventStatus', { status });
   }
@@ -146,7 +146,7 @@ const CreateEvent = () => {
                 onChange={handleChange('city')}
               />
             </View>
-            
+
             <View style={styles.Row}>
               <DatePicker
                 containerStyle={styles.startDate}
@@ -223,15 +223,15 @@ const CreateEvent = () => {
 
 const styles = StyleSheet.create({
   NameContainer: { marginTop: 30, marginBottom: 0 },
-  AddressContainer : {marginBottom: 20},
-  InfoContainer: {  marginBottom: 10 },
+  AddressContainer: { marginBottom: 20 },
+  InfoContainer: { marginBottom: 10 },
   AccountContainer: { marginTop: 20, marginBottom: 10 },
-  Input: {paddingBottom: 10},
+  Input: { paddingBottom: 10 },
   Titulo: {
-    flex: 1, 
+    flex: 1,
     fontSize: 30,
     textAlign: 'center',
-    color: 'white'
+    color: 'white',
   },
   Background: {
     flex: 1,
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   },
   startDate: {
     flex: 1,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
   },
   Footer: {
     alignItems: 'center',

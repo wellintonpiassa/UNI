@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 import { FAB, Portal, TextInput as PaperTextInput } from 'react-native-paper';
 
@@ -17,16 +17,24 @@ const Feed = () => {
   const [page, setPage] = useState(1);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
+  const isFocused = useIsFocused();
+  const shouldLoadMore = useRef(true);
+
+  const fetchEvents = useCallback(async () => {
+    const eventList = await listEvents({ page });
+    if (eventList.length > 0 && shouldLoadMore.current) {
+      setEvents(e => [...e, ...eventList]);
+      setPage(page + 1);
+    } else if (eventList.length === 0) {
+      shouldLoadMore.current = false;
+    }
+  }, [page]);
 
   useEffect(() => {
-    async function fetchEvents() {
-      const eventList = await listEvents({ page });
-      if (eventList.length > 0) {
-        setEvents(e => [...e, ...eventList]);
-      }
+    if (isFocused) {
+      fetchEvents();
     }
-    fetchEvents();
-  }, [page]);
+  }, [isFocused, fetchEvents]);
 
   return (
     <View style={styles.Container}>
@@ -73,7 +81,11 @@ const Feed = () => {
         contentContainerStyle={styles.Background}
         data={events}
         keyExtractor={item => item.id.toString()}
+<<<<<<< HEAD
         renderItem={({ item: { id, imageURL, description, name } }) => (
+=======
+        renderItem={({ item: { isFavorite, name, description, imageURL } }) => (
+>>>>>>> 600a42c (Recarregar feed ao criar um novo evento.)
           <View style={styles.EventContainer}>
             <EventCard
               id={id}
@@ -84,7 +96,7 @@ const Feed = () => {
             />
           </View>
         )}
-        onEndReached={() => setPage(page + 1)}
+        onEndReached={fetchEvents}
         onEndReachedThreshold={0.3}
         
       />

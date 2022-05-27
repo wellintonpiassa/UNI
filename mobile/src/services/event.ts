@@ -21,6 +21,7 @@ interface CreateEvent extends EventBase {
 
 export interface Event extends CreateEvent {
   id: number;
+  isFavorite: boolean;
   userId: number;
 }
 

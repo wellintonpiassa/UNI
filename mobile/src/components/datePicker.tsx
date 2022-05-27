@@ -64,8 +64,8 @@ const DatePicker: React.FC<FormDateProps> = ({
         <DateTimePicker
           display="default"
           maximumDate={maxDate}
-          mode={mode as any}
           minimumDate={minDate}
+          mode={mode as any}
           value={date || new Date()}
           onChange={handleDateSelected}
         />

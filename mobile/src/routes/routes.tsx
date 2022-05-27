@@ -9,8 +9,8 @@ import About from '../pages/about';
 import Introduction from '../pages/introduction';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
-import CreateEvent from '../pages/createEvent'
-import CreateEventStatus from '../pages/createEventStatus'
+import CreateEvent from '../pages/createEvent';
+import CreateEventStatus from '../pages/createEventStatus';
 
 import FeedNavigator from './feedNavigator';
 
@@ -21,9 +21,8 @@ export type RootStackParamList = {
   Feed: undefined;
   About: undefined;
   CreateEvent: undefined;
-  CreateEventStatus: { status: boolean};
-}
-
+  CreateEventStatus: { status: boolean };
+};
 
 // Rotas utilizadas quando o usuário não realizou login.
 const AuthRoutes: React.FC = () => {
@@ -36,13 +35,8 @@ const AuthRoutes: React.FC = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       <Stack.Screen
-        component={Introduction}
-        name="Introduction"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={SignUp}
-        name="SignUp"
+        component={SignIn}
+        name="SignIn"
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -51,8 +45,13 @@ const AuthRoutes: React.FC = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        component={SignIn}
-        name="SignIn"
+        component={Introduction}
+        name="Introduction"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SignUp}
+        name="SignUp"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
