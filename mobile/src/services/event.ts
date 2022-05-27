@@ -36,7 +36,7 @@ interface ListEventsOptions {
 }
 
 export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
-  let url = `/evento?pagina=${options.page}&proximos30d=${
+  let url = `/evento?pagina=${options.page ?? 1}&proximos30d=${
     options.filterByDate ? 1 : 0
   }`;
   if (options.filterByCity) {

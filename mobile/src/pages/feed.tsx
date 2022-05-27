@@ -8,15 +8,49 @@ import FeedModal from '../components/feedModal';
 import TextInput from '../components/textInput';
 import { listEvents } from '../services/event';
 
-import type { RootStackParamList } from '../routes/routes';
+import type { Routes } from '../routes/routes';
 import type { Event } from '../services/event';
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
+
+interface HeaderProps {
+  setIsFilterModalVisible: (isVisible: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ setIsFilterModalVisible }) => {
+  const navigation = useNavigation<DrawerNavigationProp<Routes>>();
+
+  return (
+    <View style={styles.Header}>
+      <TextInput
+        containerStyle={styles.SearchBarContainer}
+        left={
+          <PaperTextInput.Icon
+            color="#757575"
+            forceTextInputFocus={false}
+            name="menu"
+            onPress={() => navigation.openDrawer()}
+          />
+        }
+        placeholder="Buscar"
+        right={
+          <PaperTextInput.Icon
+            color="#757575"
+            forceTextInputFocus={false}
+            name="filter-variant"
+            onPress={() => setIsFilterModalVisible(true)}
+          />
+        }
+        style={styles.SearchBar}
+      />
+    </View>
+  );
+};
 
 const Feed = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<DrawerNavigationProp<Routes>>();
   const isFocused = useIsFocused();
   const shouldLoadMore = useRef(true);
 
@@ -54,29 +88,7 @@ const Feed = () => {
       />
       <FlatList<Event>
         ListHeaderComponent={
-          <View style={styles.Header}>
-            <TextInput
-              containerStyle={styles.SearchBarContainer}
-              left={
-                <PaperTextInput.Icon
-                  color="#757575"
-                  forceTextInputFocus={false}
-                  name="menu"
-                  onPress={() => navigation.openDrawer()}
-                />
-              }
-              placeholder="Buscar"
-              right={
-                <PaperTextInput.Icon
-                  color="#757575"
-                  forceTextInputFocus={false}
-                  name="filter-variant"
-                  onPress={() => setIsFilterModalVisible(true)}
-                />
-              }
-              style={styles.SearchBar}
-            />
-          </View>
+          <Header setIsFilterModalVisible={setIsFilterModalVisible} />
         }
         contentContainerStyle={styles.Background}
         data={events}

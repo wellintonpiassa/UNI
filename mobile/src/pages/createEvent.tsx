@@ -224,7 +224,6 @@ const CreateEvent = () => {
 const styles = StyleSheet.create({
   NameContainer: { marginTop: 30, marginBottom: 0 },
   AddressContainer: { marginBottom: 20 },
-  InfoContainer: { marginBottom: 10 },
   AccountContainer: { marginTop: 20, marginBottom: 10 },
   Input: { paddingBottom: 10 },
   Titulo: {
@@ -244,10 +243,6 @@ const styles = StyleSheet.create({
   Row: {
     flexDirection: 'row',
     marginBottom: 10,
-  },
-  Phone: {
-    flex: 1.5,
-    marginRight: 6,
   },
   startDate: {
     flex: 1,
