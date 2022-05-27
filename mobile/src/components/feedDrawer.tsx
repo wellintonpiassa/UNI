@@ -1,20 +1,62 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Drawer } from 'react-native-paper';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useAuth } from '../contexts/auth';
 
 function FeedDrawer() {
   const { signOut } = useAuth();
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.Container}>
-      <Drawer.Item icon="clipboard-account-outline" label="Área do usuário" />
-      <Drawer.Item icon="clipboard-text" label="Área do organizador" />
-      <Drawer.Item icon="cog" label="Configurações" />
-      <Drawer.Item icon="information" label="Ajuda" />
-      <Drawer.Item icon="power" label="Sair" onPress={signOut} />
-    </View>
+    <DrawerContentScrollView style={styles.Container}>
+      <DrawerItem
+        activeTintColor="white"
+        icon={({ color, size }) => (
+          <Icon color={color} name="clipboard-account-outline" size={size} />
+        )}
+        inactiveTintColor="white"
+        label="Área do usuário"
+        onPress={() => navigation.navigate('UserMenu')}
+      />
+      <DrawerItem
+        activeTintColor="white"
+        icon={({ color, size }) => (
+          <Icon color={color} name="clipboard-text" size={size} />
+        )}
+        inactiveTintColor="white"
+        label="Área do organizador"
+        onPress={() => {}}
+      />
+      <DrawerItem
+        activeTintColor="white"
+        icon={({ color, size }) => (
+          <Icon color={color} name="cog" size={size} />
+        )}
+        inactiveTintColor="white"
+        label="Configurações"
+        onPress={() => {}}
+      />
+      <DrawerItem
+        activeTintColor="white"
+        icon={({ color, size }) => (
+          <Icon color={color} name="information" size={size} />
+        )}
+        inactiveTintColor="white"
+        label="Ajuda"
+        onPress={() => {}}
+      />
+      <DrawerItem
+        activeTintColor="white"
+        icon={({ color, size }) => (
+          <Icon color={color} name="power" size={size} />
+        )}
+        inactiveTintColor="white"
+        label="Sair"
+        onPress={signOut}
+      />
+    </DrawerContentScrollView>
   );
 }
 
