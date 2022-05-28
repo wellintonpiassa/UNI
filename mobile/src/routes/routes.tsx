@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/auth';
 import About from '../pages/about';
 import CreateEvent from '../pages/createEvent';
 import CreateEventStatus from '../pages/createEventStatus';
+import Favorites from '../pages/favorites';
 import Introduction from '../pages/introduction';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
@@ -19,6 +20,7 @@ export type Routes = {
   About: undefined;
   CreateEvent: undefined;
   CreateEventStatus: { status: boolean };
+  Favorites: undefined;
   Feed: undefined;
   Introduction: undefined;
   SignIn: undefined;
@@ -92,6 +94,13 @@ const AppRoutes: React.FC = () => {
         name="UserMenu"
         options={{
           title: 'Área do Usuário',
+        }}
+      />
+      <Stack.Screen
+        component={Favorites}
+        name="Favorites"
+        options={{
+          title: 'Favoritos',
         }}
       />
     </Stack.Navigator>

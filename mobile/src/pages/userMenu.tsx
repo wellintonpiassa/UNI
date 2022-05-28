@@ -42,7 +42,7 @@ const UserMenu = () => {
   return (
     <View style={styles.container}>
       {options.map(({ text, icon, onPress }) => (
-        <View>
+        <View key={text}>
           <TouchableOpacity style={styles.option} onPress={onPress}>
             <Icon color="#666666" name={icon} size={22} />
             <Text style={styles.text}>{text}</Text>
