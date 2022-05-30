@@ -46,12 +46,6 @@ class EventValidator {
                 .isInt({ min: 1 })
                 .withMessage("Campo 'Número de tickets' deve ser um numero inteiro maior do que 0"),
 
-            check('email_organizador')
-                .notEmpty()
-                .withMessage("Campo 'Email do organizador' é obrigatório")
-                .isEmail()
-                .withMessage("Email inválido"),
-
             check('preco_ingresso')
                 .notEmpty()
                 .withMessage("Campo 'Preço do ingresso' é obrigatório")

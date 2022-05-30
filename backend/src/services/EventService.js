@@ -24,10 +24,10 @@ class EventService {
         return eventList
     }
 
-    async create(event) {
+    async create(event, emailOrganizador) {
 
         const e = new Event(event.nome, event.cidade, event.endereco, event.data_inicio,
-            event.data_fim, event.n_tickets, event.email_organizador, event.preco_ingresso,
+            event.data_fim, event.n_tickets, emailOrganizador, event.preco_ingresso,
             event.url_imagem_banner, event.descricao_do_evento
         )
 
