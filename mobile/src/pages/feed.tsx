@@ -8,7 +8,7 @@ import FeedModal from '../components/feedModal';
 import TextInput from '../components/textInput';
 import { listEvents } from '../services/event';
 
-import type { Routes } from '../routes/routes';
+import type { IRoutes } from '../routes/routes';
 import type { Event } from '../services/event';
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
 
@@ -17,7 +17,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ setIsFilterModalVisible }) => {
-  const navigation = useNavigation<DrawerNavigationProp<Routes>>();
+  const navigation = useNavigation<DrawerNavigationProp<IRoutes>>();
 
   return (
     <View style={styles.Header}>
@@ -50,7 +50,7 @@ const Feed = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const navigation = useNavigation<DrawerNavigationProp<Routes>>();
+  const navigation = useNavigation<DrawerNavigationProp<IRoutes>>();
   const isFocused = useIsFocused();
   const shouldLoadMore = useRef(true);
 

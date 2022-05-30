@@ -2,7 +2,6 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import React from 'react';
 
 import { useAuth } from '../contexts/auth';
 import About from '../pages/about';
@@ -16,7 +15,7 @@ import UserMenu from '../pages/userMenu';
 
 import FeedNavigator from './feedNavigator';
 
-export type Routes = {
+export type IRoutes = {
   About: undefined;
   CreateEvent: undefined;
   CreateEventStatus: { status: boolean };
@@ -30,7 +29,7 @@ export type Routes = {
 
 // Rotas utilizadas quando o usuário não realizou login.
 const AuthRoutes: React.FC = () => {
-  const Stack = createStackNavigator<Routes>();
+  const Stack = createStackNavigator<IRoutes>();
 
   return (
     <Stack.Navigator
@@ -64,7 +63,7 @@ const AuthRoutes: React.FC = () => {
 
 // Rotas utilizadas quando o usuário realizou login.
 const AppRoutes: React.FC = () => {
-  const Stack = createStackNavigator<Routes>();
+  const Stack = createStackNavigator<IRoutes>();
 
   return (
     <Stack.Navigator
@@ -76,7 +75,7 @@ const AppRoutes: React.FC = () => {
       }}>
       <Stack.Screen
         component={FeedNavigator}
-        name={'FeedNavigator' as keyof Routes}
+        name={'FeedNavigator' as keyof IRoutes}
         options={{ headerShown: false }}
       />
       <Stack.Screen

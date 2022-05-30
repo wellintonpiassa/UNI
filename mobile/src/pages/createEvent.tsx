@@ -9,7 +9,6 @@ import Picker from '../components/picker';
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
-import { useAuth } from '../contexts/auth';
 import { createEvent } from '../services/event';
 
 interface FormData {
@@ -28,7 +27,6 @@ interface FormData {
 
 const CreateEvent = () => {
   const navigation = useNavigation();
-  const { userInfo } = useAuth();
 
   const createEventSchema = Yup.object({
     name: Yup.string().required('Campo obrigatório'),
@@ -73,7 +71,6 @@ const CreateEvent = () => {
     const endDateTime = new Date(values.endDate + ' ' + values.endTime);
     const eventInfo = {
       ...values,
-      email: userInfo.email,
       startDateTime,
       endDateTime,
     };

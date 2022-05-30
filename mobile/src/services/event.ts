@@ -3,7 +3,7 @@ import { ptBR } from 'date-fns/locale';
 
 import api from './api';
 
-interface EventBase {
+interface CreateEvent {
   address: string;
   city: string;
   description: string;
@@ -13,10 +13,6 @@ interface EventBase {
   price: string;
   startDateTime: Date;
   tickets: string;
-}
-
-interface CreateEvent extends EventBase {
-  email: string;
 }
 
 export interface Event extends CreateEvent {
@@ -78,7 +74,6 @@ export async function createEvent(event: CreateEvent): Promise<boolean> {
         locale: ptBR,
       }),
       n_tickets: event.tickets,
-      email_organizador: event.email,
     });
     return data.created;
   } catch (e) {

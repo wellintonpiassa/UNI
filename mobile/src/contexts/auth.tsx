@@ -5,13 +5,8 @@ import { hide } from 'react-native-bootsplash';
 import api from '../services/api';
 import signInService, { LoginStatus } from '../services/signIn';
 
-interface UserInfo {
-  email: string;
-}
-
 interface AuthContextData {
   isSignedIn: boolean;
-  userInfo: UserInfo;
   signIn: (email: string, password: string) => Promise<LoginStatus>;
   signOut: () => Promise<void>;
 }
@@ -20,7 +15,6 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState<UserInfo>({ email: '' });
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -43,7 +37,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     if (status === LoginStatus.Success) {
       await AsyncStorage.setItem('@UNI:token', loginToken);
       api.defaults.headers.common['x-access-token'] = loginToken;
-      setUserInfo({ email });
       setToken(loginToken);
     }
     return status;
@@ -59,7 +52,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider
       value={{
         isSignedIn: !!token,
-        userInfo,
         signIn,
         signOut,
       }}>
