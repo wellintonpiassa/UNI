@@ -28,7 +28,7 @@ class UserValidator {
             check('data_nascimento')
                 .notEmpty()
                 .withMessage("Campo 'Data de nascimento' é obrigatório")
-                .isDate({ format: 'DD-MM-YYYY' })
+                .isDate({ format: 'YYYY-MM-DD' })
                 .withMessage("Formato de data inválido"),
 
             check('email')
