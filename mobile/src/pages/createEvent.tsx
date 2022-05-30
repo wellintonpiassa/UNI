@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import * as Yup from 'yup';
 
 import DatePicker from '../components/datePicker';
@@ -230,7 +230,8 @@ const styles = StyleSheet.create({
   Titulo: {
     flex: 1, 
     fontSize: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
   Background: {
     flex: 1,
