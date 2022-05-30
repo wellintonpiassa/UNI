@@ -72,10 +72,11 @@ const Feed = () => {
         }
         contentContainerStyle={styles.Background}
         data={events}
-        keyExtractor={item => item.id}
-        renderItem={({ item: { imageURL, description, name } }) => (
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item: { id, imageURL, description, name } }) => (
           <View style={styles.EventContainer}>
             <EventCard
+              id={id}
               imageURI={imageURL}
               isFavorite={false}
               subtitle={description}
@@ -85,6 +86,7 @@ const Feed = () => {
         )}
         onEndReached={() => setPage(page + 1)}
         onEndReachedThreshold={0.3}
+        
       />
     </View>
   );

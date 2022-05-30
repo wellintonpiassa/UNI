@@ -20,8 +20,8 @@ interface CreateEvent extends EventBase {
 }
 
 export interface Event extends CreateEvent {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
 }
 
 interface ListEventsOptions {

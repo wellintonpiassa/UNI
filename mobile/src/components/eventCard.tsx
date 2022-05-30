@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { StyleSheet, Share } from 'react-native';
 import { Card, IconButton } from 'react-native-paper';
 
+import { removeFavorite, addFavorite } from '../services/favorite';
+
 interface CardProps {
   imageURI: string;
   subtitle: string;
   title: string;
   isFavorite: boolean;
+  id: number
 }
 
 const EventCard: React.FC<CardProps> = ({
+  id,
   imageURI,
   subtitle,
   title,
@@ -23,6 +27,15 @@ const EventCard: React.FC<CardProps> = ({
       message: `UNI | Você foi convidado para o evento ${title}.`,
     });
   };
+
+  const handleFavorite = async () => {
+    if(isFavorite)
+      removeFavorite(id);
+    else
+      addFavorite(id);
+    
+    setIsFavorite(!isFavorite) 
+  }
 
   return (
     <Card style={styles.Card}>
@@ -45,7 +58,7 @@ const EventCard: React.FC<CardProps> = ({
           icon={isFavorite ? 'heart' : 'heart-outline'}
           size={20}
           animated
-          onPress={() => setIsFavorite(!isFavorite)}
+          onPress={handleFavorite}
         />
       </Card.Actions>
     </Card>
