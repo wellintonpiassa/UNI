@@ -47,6 +47,7 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
       endDate: event.datafim,
       id: event.idevento,
       imageURL: event.url_imagem_banner,
+      isFavorite: event.favorito,
       name: event.nome,
       price: event.preco_ingresso,
       startDate: event.datainicio,

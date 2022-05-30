@@ -102,7 +102,7 @@ const Feed = () => {
             <EventCard
               id={id}
               imageURI={imageURL}
-              isFavorite={false}
+              isFavorite={isFavorite}
               subtitle={description}
               title={name}
             />
