@@ -30,6 +30,15 @@ class UserService {
     async authUser(usuario) {
         return await this.#hashPassword.verifyPassword(usuario)
     }
+
+    async favoriteEvent(email, eventId) {
+
+        const [{ identificador }] = await knex('apk.usuario')
+                        .select('apk.usuario.identificador')
+                        .where({ e_mail: email })
+
+        await knex('apk.favorita').insert({ usuario_id: parseInt(identificador), evento_id: parseInt(eventId) })
+    }
 }
 
 module.exports = new UserService()

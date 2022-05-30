@@ -24,6 +24,8 @@ class Routes {
             .get('/evento', this.#jwtAuth.verifyJWT(), this.#eventController.searchForEvents)
             .post('/evento', this.#jwtAuth.verifyJWT(), this.#eventValidator.getEventValidator(),
                 this.#eventController.createEvent)
+            .post('/favorito', this.#jwtAuth.verifyJWT(), this.#userValidator.getFavoriteValidator(),
+                this.#userController.favorite)
     }
 
     getRoutes() {

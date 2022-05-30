@@ -38,6 +38,22 @@ class UserController {
             next(error)
         }
     }
+
+    async favorite(req, res, next) {
+        try {
+            const email = req.email
+            const eventoId = req.evento_id
+
+            await UserController.#userService.favoriteEvent(email, eventoId)
+
+            const jwt = await UserController.#jwtAuth.getJWT(email)
+
+            return res.status(201).json({ msg: "Evento favoritado.", jwt: jwt }).send()
+
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new UserController()
