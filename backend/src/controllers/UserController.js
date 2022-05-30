@@ -47,11 +47,7 @@ class UserController {
 
             const events = await UserController.#userService.getFavoriteEvents(identificador)
 
-            if (events.length > 0)
-                return res.status(200).json({ eventList: events }).send()
-            else
-                return res.status(200).json({ msg: 'Nenhum evento favoritado' }).send()
-
+            return res.status(200).json({ eventList: events }).send()
 
         } catch (error) {
             next(error)
