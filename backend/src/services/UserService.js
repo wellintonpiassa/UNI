@@ -30,6 +30,16 @@ class UserService {
     async authUser(usuario) {
         return await this.#hashPassword.verifyPassword(usuario)
     }
+
+    async getUserByEmail(email) {
+        return await knex('apk.usuario').select('identificador', 'nome').where({ e_mail: email });
+    }
+
+    async getFavoriteEvents(usuario_id) {
+        return await knex('apk.favorita')
+            .join('apk.evento', 'apk.favorita.evento_id', 'apk.evento.idevento')
+            .select('*').where({ 'apk.favorita.usuario_id': usuario_id })
+    }
 }
 
 module.exports = new UserService()

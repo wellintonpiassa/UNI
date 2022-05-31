@@ -38,6 +38,21 @@ class UserController {
             next(error)
         }
     }
+
+    async getFavorites(req, res, next) {
+        try {
+            const email = req.email
+
+            const [{ identificador }] = await UserController.#userService.getUserByEmail(email)
+
+            const events = await UserController.#userService.getFavoriteEvents(identificador)
+
+            return res.status(200).json({ eventList: events }).send()
+
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new UserController()

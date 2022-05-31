@@ -38,7 +38,7 @@ class EventController {
         try {
 
             const e = req.body
-            const result = await EventController.#eventService.create(e)
+            const result = await EventController.#eventService.create(e, req.email)
 
             if (result)
                 return res.status(200).json({ created: true }).send()
