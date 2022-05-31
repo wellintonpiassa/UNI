@@ -46,9 +46,7 @@ class UserController {
 
             await UserController.#userService.favoriteEvent(email, eventoId)
 
-            const jwt = await UserController.#jwtAuth.getJWT(email)
-
-            return res.status(201).json({ msg: "Evento favoritado.", jwt: jwt }).send()
+            return res.status(201).json({ msg: "Evento favoritado." }).send()
 
         } catch (error) {
             next(error)
@@ -62,10 +60,8 @@ class UserController {
 
             await UserController.#userService.deleteFavorite(email, id)
 
-            const jwt = await UserController.#jwtAuth.getJWT(email)
+            return res.status(201).json({ msg: "Favorito deletado." }).send()
 
-            return res.status(201).json({ msg: "Favorito deletado.", jwt: jwt }).send()
-          
         } catch (error) {
             next(error)
         }
