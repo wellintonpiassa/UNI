@@ -40,6 +40,16 @@ class UserService {
             .join('apk.evento', 'apk.favorita.evento_id', 'apk.evento.idevento')
             .select('*').where({ 'apk.favorita.usuario_id': usuario_id })
     }
+
+    async checkFavorite(email, id_evento) {
+
+        const [{ identificador }] = await this.getUserByEmail(email)
+
+        const data = await knex('apk.favorita').where({ usuario_id: identificador, evento_id: id_evento })
+
+        return data.length > 0 ? true : false
+    }
+
 }
 
 module.exports = new UserService()

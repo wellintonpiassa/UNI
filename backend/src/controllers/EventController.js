@@ -1,6 +1,7 @@
 
 class EventController {
     static #eventService = require('../services/EventService')
+    static #userService = require('../services/UserService')
 
     constructor() {
     }
@@ -26,7 +27,27 @@ class EventController {
                 page = 1
             }
 
-            const eventList = await EventController.#eventService.search(filters, page)
+            const eventList = await EventController.#eventService.search(filters, page, req.email)
+
+            const promises = [];
+
+            eventList.forEach((event) => {
+                const promise = new Promise((resolve, reject) => {
+                    EventController.#userService.checkFavorite(req.email, event.idevento)
+                        .then(favorito => {
+                            event.favorito = favorito
+                            resolve(event)
+                        })
+                        .catch(e => {
+                            reject(e)
+                        })
+                })
+
+                promises.push(promise)
+            });
+
+            await Promise.all(promises).then(r => r).catch(error => { throw error })
+
             return res.status(200).json({ eventList }).send()
 
         } catch (error) {
