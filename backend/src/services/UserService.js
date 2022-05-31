@@ -31,6 +31,24 @@ class UserService {
         return await this.#hashPassword.verifyPassword(usuario)
     }
 
+    async favoriteEvent(email, eventId) {
+
+        const [{ identificador }] = await knex('apk.usuario')
+                        .select('apk.usuario.identificador')
+                        .where({ e_mail: email })
+
+        await knex('apk.favorita').insert({ usuario_id: parseInt(identificador), evento_id: parseInt(eventId) })
+    }
+
+    async deleteFavorite(email, eventId) {
+
+        const [{ identificador }] = await knex('apk.usuario')
+                        .select('apk.usuario.identificador')
+                        .where({ e_mail: email })
+
+        await knex('apk.favorita').where({ usuario_id: parseInt(identificador), evento_id: parseInt(eventId)}).del()
+    }
+
     async getUserByEmail(email) {
         return await knex('apk.usuario').select('identificador', 'nome').where({ e_mail: email });
     }

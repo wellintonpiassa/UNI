@@ -39,6 +39,34 @@ class UserController {
         }
     }
 
+    async favorite(req, res, next) {
+        try {
+            const email = req.email
+            const eventoId = req.body.evento_id
+
+            await UserController.#userService.favoriteEvent(email, eventoId)
+
+            return res.status(201).json({ msg: "Evento favoritado." }).send()
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async deleteFavorite(req, res, next) {
+        try {
+            const email = req.email
+            const { id } = req.params
+
+            await UserController.#userService.deleteFavorite(email, id)
+
+            return res.status(201).json({ msg: "Favorito deletado." }).send()
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
     async getFavorites(req, res, next) {
         try {
             const email = req.email

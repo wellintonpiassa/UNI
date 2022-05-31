@@ -75,6 +75,21 @@ class UserValidator {
         ];
     }
 
+    getFavoriteValidator() {
+        return [
+            check('evento_id')
+                .notEmpty()
+                .withMessage("Campo 'evento_id' é obrigatório"),
+
+            (req, res, next) => {
+                const errors = validationResult(req);
+                if (!errors.isEmpty())
+                    return res.status(422).json({ errors: errors.array() });
+                next();
+            }
+        ];
+    }
+
 }
 
 module.exports = new UserValidator();
