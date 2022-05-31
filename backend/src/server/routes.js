@@ -27,6 +27,7 @@ class Routes {
             .post('/favorito', this.#jwtAuth.verifyJWT(), this.#userValidator.getFavoriteValidator(),
                 this.#userController.favorite)
             .delete('/favorito/:id', this.#jwtAuth.verifyJWT(), this.#userController.deleteFavorite)
+            .get('/favorito', this.#jwtAuth.verifyJWT(), this.#userController.getFavorites)
     }
 
     getRoutes() {

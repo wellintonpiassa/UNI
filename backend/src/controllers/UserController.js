@@ -65,6 +65,21 @@ class UserController {
             const jwt = await UserController.#jwtAuth.getJWT(email)
 
             return res.status(201).json({ msg: "Favorito deletado.", jwt: jwt }).send()
+          
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getFavorites(req, res, next) {
+        try {
+            const email = req.email
+
+            const [{ identificador }] = await UserController.#userService.getUserByEmail(email)
+
+            const events = await UserController.#userService.getFavoriteEvents(identificador)
+
+            return res.status(200).json({ eventList: events }).send()
 
         } catch (error) {
             next(error)
