@@ -42,7 +42,8 @@ class UserController {
     async favorite(req, res, next) {
         try {
             const email = req.email
-            const eventoId = req.evento_id
+            const eventoId = req.body.evento_id
+            console.log(eventoId)
 
             await UserController.#userService.favoriteEvent(email, eventoId)
 
