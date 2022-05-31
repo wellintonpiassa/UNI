@@ -3,7 +3,7 @@ import { ptBR } from 'date-fns/locale';
 
 import api from './api';
 
-interface EventBase {
+interface CreateEvent {
   address: string;
   city: string;
   description: string;
@@ -15,12 +15,9 @@ interface EventBase {
   tickets: string;
 }
 
-interface CreateEvent extends EventBase {
-  email: string;
-}
-
 export interface Event extends CreateEvent {
   id: number;
+  isFavorite: boolean;
   userId: number;
 }
 
@@ -35,7 +32,7 @@ interface ListEventsOptions {
 }
 
 export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
-  let url = `/evento?pagina=${options.page}&proximos30d=${
+  let url = `/evento?pagina=${options.page ?? 1}&proximos30d=${
     options.filterByDate ? 1 : 0
   }`;
   if (options.filterByCity) {
@@ -50,6 +47,7 @@ export async function listEvents(options: ListEventsOptions): Promise<Event[]> {
       endDate: event.datafim,
       id: event.idevento,
       imageURL: event.url_imagem_banner,
+      isFavorite: event.favorito,
       name: event.nome,
       price: event.preco_ingresso,
       startDate: event.datainicio,
@@ -77,7 +75,6 @@ export async function createEvent(event: CreateEvent): Promise<boolean> {
         locale: ptBR,
       }),
       n_tickets: event.tickets,
-      email_organizador: event.email,
     });
     return data.created;
   } catch (e) {

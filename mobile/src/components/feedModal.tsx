@@ -48,7 +48,7 @@ const FeedModal: React.FC<FeedModalProps> = ({
               style={styles.CheckBox}
               onPress={() => setFilterByDate(!filterByDate)}
             />
-            <Text style={styles.DateText}>Próximos 30d</Text>
+            <Text style={styles.DateText}>Próximos 30 dias</Text>
           </View>
           <View style={styles.CityOptions}>
             <View>

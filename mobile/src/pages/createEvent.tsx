@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import * as Yup from 'yup';
 
 import DatePicker from '../components/datePicker';
@@ -8,7 +9,6 @@ import Picker from '../components/picker';
 import PrimaryButton from '../components/primaryButton';
 import ScrollView from '../components/scrollView';
 import TextInput from '../components/textInput';
-import { useAuth } from '../contexts/auth';
 import { createEvent } from '../services/event';
 
 interface FormData {
@@ -27,7 +27,6 @@ interface FormData {
 
 const CreateEvent = () => {
   const navigation = useNavigation();
-  const { userInfo } = useAuth();
 
   const createEventSchema = Yup.object({
     name: Yup.string().required('Campo obrigatório'),
@@ -72,12 +71,10 @@ const CreateEvent = () => {
     const endDateTime = new Date(values.endDate + ' ' + values.endTime);
     const eventInfo = {
       ...values,
-      email: userInfo.email,
       startDateTime,
       endDateTime,
     };
     setSubmitting(true);
-
     const status = await createEvent(eventInfo);
     navigation.navigate('CreateEventStatus', { status });
   }
@@ -146,7 +143,7 @@ const CreateEvent = () => {
                 onChange={handleChange('city')}
               />
             </View>
-            
+
             <View style={styles.Row}>
               <DatePicker
                 containerStyle={styles.startDate}
@@ -223,15 +220,14 @@ const CreateEvent = () => {
 
 const styles = StyleSheet.create({
   NameContainer: { marginTop: 30, marginBottom: 0 },
-  AddressContainer : {marginBottom: 20},
-  InfoContainer: {  marginBottom: 10 },
+  AddressContainer: { marginBottom: 20 },
   AccountContainer: { marginTop: 20, marginBottom: 10 },
-  Input: {paddingBottom: 10},
+  Input: { paddingBottom: 10 },
   Titulo: {
-    flex: 1, 
+    flex: 1,
     fontSize: 30,
     textAlign: 'center',
-    color: 'white'
+    color: 'white',
   },
   Background: {
     flex: 1,
@@ -245,13 +241,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
-  Phone: {
-    flex: 1.5,
-    marginRight: 6,
-  },
   startDate: {
     flex: 1,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
   },
   Footer: {
     alignItems: 'center',

@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 
 import PrimaryButton from '../components/primaryButton';
 
-import type { RootStackParamList } from '../routes/routes';
+import type { IRoutes } from '../routes/routes';
 import type { RouteProp } from '@react-navigation/core';
 
 import Failed from '../../assets/images/failed.png';
@@ -12,8 +12,7 @@ import Success from '../../assets/images/success.png';
 
 const CreateEventStatus = () => {
   const navigation = useNavigation();
-  const { status } =
-    useRoute<RouteProp<RootStackParamList, 'CreateEventStatus'>>().params;
+  const { status } = useRoute<RouteProp<IRoutes, 'CreateEventStatus'>>().params;
 
   return (
     <View style={styles.Background}>

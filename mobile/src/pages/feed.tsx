@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 import { FAB, Portal, TextInput as PaperTextInput } from 'react-native-paper';
 
@@ -8,25 +8,67 @@ import FeedModal from '../components/feedModal';
 import TextInput from '../components/textInput';
 import { listEvents } from '../services/event';
 
-import type { RootStackParamList } from '../routes/routes';
+import type { IRoutes } from '../routes/routes';
 import type { Event } from '../services/event';
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
+
+interface HeaderProps {
+  setIsFilterModalVisible: (isVisible: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ setIsFilterModalVisible }) => {
+  const navigation = useNavigation<DrawerNavigationProp<IRoutes>>();
+
+  return (
+    <View style={styles.Header}>
+      <TextInput
+        containerStyle={styles.SearchBarContainer}
+        left={
+          <PaperTextInput.Icon
+            color="#757575"
+            forceTextInputFocus={false}
+            name="menu"
+            onPress={() => navigation.openDrawer()}
+          />
+        }
+        placeholder="Buscar"
+        right={
+          <PaperTextInput.Icon
+            color="#757575"
+            forceTextInputFocus={false}
+            name="filter-variant"
+            onPress={() => setIsFilterModalVisible(true)}
+          />
+        }
+        style={styles.SearchBar}
+      />
+    </View>
+  );
+};
 
 const Feed = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<DrawerNavigationProp<IRoutes>>();
+  const isFocused = useIsFocused();
+  const shouldLoadMore = useRef(true);
+
+  const fetchEvents = useCallback(async () => {
+    const eventList = await listEvents({ page });
+    if (eventList.length > 0 && shouldLoadMore.current) {
+      setEvents(e => [...e, ...eventList]);
+      setPage(page + 1);
+    } else if (eventList.length === 0) {
+      shouldLoadMore.current = false;
+    }
+  }, [page]);
 
   useEffect(() => {
-    async function fetchEvents() {
-      const eventList = await listEvents({ page });
-      if (eventList.length > 0) {
-        setEvents(e => [...e, ...eventList]);
-      }
+    if (isFocused) {
+      fetchEvents();
     }
-    fetchEvents();
-  }, [page]);
+  }, [isFocused, fetchEvents]);
 
   return (
     <View style={styles.Container}>
@@ -46,47 +88,26 @@ const Feed = () => {
       />
       <FlatList<Event>
         ListHeaderComponent={
-          <View style={styles.Header}>
-            <TextInput
-              containerStyle={styles.SearchBarContainer}
-              left={
-                <PaperTextInput.Icon
-                  color="#757575"
-                  forceTextInputFocus={false}
-                  name="menu"
-                  onPress={() => navigation.openDrawer()}
-                />
-              }
-              placeholder="Buscar"
-              right={
-                <PaperTextInput.Icon
-                  color="#757575"
-                  forceTextInputFocus={false}
-                  name="filter-variant"
-                  onPress={() => setIsFilterModalVisible(true)}
-                />
-              }
-              style={styles.SearchBar}
-            />
-          </View>
+          <Header setIsFilterModalVisible={setIsFilterModalVisible} />
         }
         contentContainerStyle={styles.Background}
         data={events}
         keyExtractor={item => item.id.toString()}
-        renderItem={({ item: { id, imageURL, description, name } }) => (
+        renderItem={({
+          item: { id, isFavorite, name, description, imageURL },
+        }) => (
           <View style={styles.EventContainer}>
             <EventCard
               id={id}
               imageURI={imageURL}
-              isFavorite={false}
+              isFavorite={isFavorite}
               subtitle={description}
               title={name}
             />
           </View>
         )}
-        onEndReached={() => setPage(page + 1)}
+        onEndReached={fetchEvents}
         onEndReachedThreshold={0.3}
-        
       />
     </View>
   );

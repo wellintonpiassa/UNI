@@ -9,7 +9,7 @@ interface CardProps {
   subtitle: string;
   title: string;
   isFavorite: boolean;
-  id: number
+  id: number;
 }
 
 const EventCard: React.FC<CardProps> = ({
@@ -29,13 +29,14 @@ const EventCard: React.FC<CardProps> = ({
   };
 
   const handleFavorite = async () => {
-    if(isFavorite)
+    if (isFavorite) {
       removeFavorite(id);
-    else
+    } else {
       addFavorite(id);
-    
-    setIsFavorite(!isFavorite) 
-  }
+    }
+
+    setIsFavorite(!isFavorite);
+  };
 
   return (
     <Card style={styles.Card}>
